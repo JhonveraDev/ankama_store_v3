@@ -28,4 +28,8 @@ export const bannerSlides: BannerSlide[] = [
     imageUrl: '/media/banners/banner_06_large.jpg',
     alt: 'Promoción destacada 6',
   },
+  {
+    imageUrl: '/media/banners/banner_07_large.jpg',
+    alt: 'Promoción destacada 7',
+  },
 ]
