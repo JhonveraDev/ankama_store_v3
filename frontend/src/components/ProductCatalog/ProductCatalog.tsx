@@ -1,6 +1,7 @@
 import { AlertCircle, LoaderCircle, PackageOpen, SlidersHorizontal } from 'lucide-react'
-import type { Product } from '../../types/product'
+import { useState } from 'react'
 import { ProductCard } from '../../features/products/components/ProductCard'
+import type { Product } from '../../types/product'
 
 interface ProductCatalogProps {
   products: Product[]
@@ -10,10 +11,17 @@ interface ProductCatalogProps {
   onRetry: () => void
 }
 
+function formatGameName(game: string): string {
+  return game.replaceAll('_', ' ').replace(/\b\w/g, (character) => character.toUpperCase())
+}
+
 export function ProductCatalog({ products, isLoading, isError, searchTerm, onRetry }: ProductCatalogProps) {
-  const categories = [...new Set(products.map((product) => product.category))]
+  const [activeGame, setActiveGame] = useState<string>('ALL')
+  const games = [...new Set(products.map((product) => product.game))]
+  const normalizedSearchTerm = searchTerm.toLowerCase()
   const filteredProducts = products.filter((product) =>
-    `${product.name} ${product.description} ${product.category}`.toLowerCase().includes(searchTerm.toLowerCase()),
+    (activeGame === 'ALL' || product.game === activeGame)
+    && `${product.name} ${product.description} ${product.category}`.toLowerCase().includes(normalizedSearchTerm),
   )
 
   return (
@@ -21,9 +29,14 @@ export function ProductCatalog({ products, isLoading, isError, searchTerm, onRet
       <aside className="catalog-sidebar">
         <p className="section-kicker">Explorar</p>
         <h2>Catálogo</h2>
-        <span className="catalog-count">{products.length} artículos</span>
+        <span className="catalog-count">{filteredProducts.length} artículos</span>
         <div className="category-list">
-          {categories.map((category) => <button type="button" key={category}>{category}</button>)}
+          <button type="button" className={activeGame === 'ALL' ? 'is-active' : ''} aria-pressed={activeGame === 'ALL'} onClick={() => setActiveGame('ALL')}>Todos</button>
+          {games.map((game) => (
+            <button type="button" key={game} className={activeGame === game ? 'is-active' : ''} aria-pressed={activeGame === game} onClick={() => setActiveGame(game)}>
+              {formatGameName(game)}
+            </button>
+          ))}
         </div>
       </aside>
 
@@ -40,18 +53,16 @@ export function ProductCatalog({ products, isLoading, isError, searchTerm, onRet
         {isError && (
           <div className="catalog-message catalog-message--error">
             <AlertCircle />
-            <div>
-              <p>No fue posible cargar el catálogo.</p>
-              <button className="catalog-retry-button" type="button" onClick={onRetry}>Reintentar</button>
-            </div>
+            <div><p>No fue posible cargar el catálogo.</p><button className="catalog-retry-button" type="button" onClick={onRetry}>Reintentar</button></div>
           </div>
         )}
         {!isLoading && !isError && filteredProducts.length === 0 && (
-          <div className="catalog-message catalog-message--empty"><PackageOpen size={38} />
+          <div className="catalog-message catalog-message--empty">
+            <PackageOpen size={38} />
             <div><h3>{searchTerm ? 'No encontramos resultados' : 'El catálogo estará disponible pronto'}</h3><p>{searchTerm ? 'Prueba con otra búsqueda.' : 'Añade productos al archivo JSON para mostrarlos aquí.'}</p></div>
           </div>
         )}
-        {filteredProducts.length > 0 && <div className="product-grid">{filteredProducts.map((product) => <ProductCard key={product.id} product={product} />)}</div>}
+        {filteredProducts.length > 0 && <div className="product-grid" key={activeGame}>{filteredProducts.map((product) => <ProductCard key={product.id} product={product} />)}</div>}
       </div>
     </section>
   )
