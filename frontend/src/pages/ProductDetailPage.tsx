@@ -1,5 +1,5 @@
 import { AlertCircle, LoaderCircle, PackageOpen } from 'lucide-react'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { ProductCategoryResults } from '../features/products/components/ProductCategoryResults'
 import { ProductCategorySidebar } from '../features/products/components/ProductCategorySidebar'
@@ -7,13 +7,19 @@ import { ProductGallery } from '../features/products/components/ProductGallery'
 import { ProductInfo } from '../features/products/components/ProductInfo'
 import { useProducts } from '../features/products/hooks/use-products'
 import { getGameCategories, getProductsByGameAndCategory } from '../features/products/utils/product-categories'
+import { useRecentlyViewed } from '../features/recently-viewed/hooks/use-recently-viewed'
 
 export function ProductDetailPage() {
   const { slug } = useParams()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const { data: products = [], isError, isLoading, refetch } = useProducts()
+  const { recordProduct } = useRecentlyViewed()
   const product = useMemo(() => products.find((item) => item.slug === slug), [products, slug])
+
+  useEffect(() => {
+    if (product) recordProduct(product)
+  }, [product, recordProduct])
 
   if (isLoading) return <div className="product-detail-message catalog-message"><LoaderCircle className="spin" /> Cargando producto…</div>
   if (isError) return <div className="product-detail-message catalog-message catalog-message--error"><AlertCircle /><div><p>No fue posible cargar el producto.</p><button className="catalog-retry-button" onClick={() => void refetch()} type="button">Reintentar</button></div></div>
