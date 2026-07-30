@@ -7,9 +7,10 @@ interface ProductCatalogProps {
   isLoading: boolean
   isError: boolean
   searchTerm: string
+  onRetry: () => void
 }
 
-export function ProductCatalog({ products, isLoading, isError, searchTerm }: ProductCatalogProps) {
+export function ProductCatalog({ products, isLoading, isError, searchTerm, onRetry }: ProductCatalogProps) {
   const categories = [...new Set(products.map((product) => product.category))]
   const filteredProducts = products.filter((product) =>
     `${product.name} ${product.description} ${product.category}`.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -36,7 +37,15 @@ export function ProductCatalog({ products, isLoading, isError, searchTerm }: Pro
         </div>
 
         {isLoading && <div className="catalog-message"><LoaderCircle className="spin" /> Cargando catálogo…</div>}
-        {isError && <div className="catalog-message catalog-message--error"><AlertCircle /> No fue posible cargar el catálogo.</div>}
+        {isError && (
+          <div className="catalog-message catalog-message--error">
+            <AlertCircle />
+            <div>
+              <p>No fue posible cargar el catálogo.</p>
+              <button className="catalog-retry-button" type="button" onClick={onRetry}>Reintentar</button>
+            </div>
+          </div>
+        )}
         {!isLoading && !isError && filteredProducts.length === 0 && (
           <div className="catalog-message catalog-message--empty"><PackageOpen size={38} />
             <div><h3>{searchTerm ? 'No encontramos resultados' : 'El catálogo estará disponible pronto'}</h3><p>{searchTerm ? 'Prueba con otra búsqueda.' : 'Añade productos al archivo JSON para mostrarlos aquí.'}</p></div>

@@ -21,12 +21,14 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.0.9",
     "eslint": "^10.6.0",
+    "globals": "^17.7.0",
     "prisma": "^6.19.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",

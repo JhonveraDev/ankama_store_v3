@@ -8,10 +8,16 @@ const productSchema = z.object({
   slug: z.string().min(1),
   name: z.string().min(1),
   description: z.string().min(1),
+  game: z.enum(['DOFUS', 'WAKFU', 'DOFUS_RETRO']),
   category: z.string().min(1),
-  price: z.number().nonnegative(),
-  currency: z.string().length(3),
-  imageUrl: z.string().url(),
+  price: z.object({
+    amount: z.number().int().nonnegative(),
+    currency: z.string().length(3),
+  }),
+  imageUrl: z.string().min(1),
+  stock: z.number().int().nonnegative(),
+  badge: z.string().min(1).optional(),
+  isFeatured: z.boolean(),
   isAvailable: z.boolean(),
 })
 
