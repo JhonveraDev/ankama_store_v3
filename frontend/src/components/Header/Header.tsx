@@ -1,15 +1,16 @@
 import { ChevronDown, CircleUserRound, ExternalLink, Menu, Search, ShoppingBasket } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { type FormEvent, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { navigationItems } from '../../features/navigation/navigation-items'
 
 export function Header() {
-  const [openMenu, setOpenMenu] = useState<string | null>(null)
-  const navigationRef = useRef<HTMLElement>(null)
-  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const location = useLocation()
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const [searchInput, setSearchInput] = useState(() => location.pathname === '/buscar' ? (searchParams.get('q') ?? '') : '')
+  const navigationRef = useRef<HTMLElement>(null)
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const searchTerm = location.pathname === '/buscar' ? (searchParams.get('q') ?? '') : ''
 
   const cancelClose = () => {
@@ -29,15 +30,22 @@ export function Header() {
     closeTimeoutRef.current = setTimeout(() => setOpenMenu(null), 180)
   }
 
-  const handleSearchChange = (value: string) => {
-    const query = value.trim()
+  useEffect(() => {
+    const syncSearchInput = window.setTimeout(() => setSearchInput(searchTerm), 0)
+
+    return () => window.clearTimeout(syncSearchInput)
+  }, [searchTerm])
+
+  const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const query = searchInput.trim()
 
     if (!query) {
       navigate('/')
       return
     }
 
-    navigate(`/buscar?q=${encodeURIComponent(query)}`, { replace: true })
+    navigate(`/buscar?q=${encodeURIComponent(query)}`)
   }
 
   useEffect(() => {
@@ -69,11 +77,11 @@ export function Header() {
           <strong>store</strong>
         </a>
 
-        <label className="search-box">
-          <span className="sr-only">Buscar productos</span>
-          <Search aria-hidden="true" size={20} />
-          <input value={searchTerm} onChange={(event) => handleSearchChange(event.target.value)} placeholder="Buscar productos" type="search" />
-        </label>
+        <form className="search-box" onSubmit={handleSearchSubmit}>
+          <label className="sr-only" htmlFor="product-search">Buscar productos</label>
+          <input id="product-search" minLength={3} onChange={(event) => setSearchInput(event.target.value)} placeholder="Buscar productos" type="search" value={searchInput} />
+          <button className="search-submit" type="submit" aria-label="Buscar productos"><Search aria-hidden="true" size={20} /></button>
+        </form>
 
         <div className="header-actions">
           <button className="icon-button" type="button" aria-label="Abrir carrito"><ShoppingBasket size={22} /></button>

@@ -6,6 +6,7 @@
 .search-box svg { color: #252523; flex: none; }
 .search-box input { width: 100%; border: 0; outline: 0; background: transparent; color: #272624; }
 .search-box input::placeholder { color: #9a9a97; }
+.search-submit { display: grid; flex: none; place-items: center; border: 0; padding: 0; background: transparent; color: #252523; }
 .header-actions { display: flex; justify-content: flex-end; align-items: center; gap: .9rem; }
 .icon-button, .mobile-menu-button { display: grid; place-items: center; width: 43px; height: 43px; border: 1px solid #292927; border-radius: 50%; background: #fff; }
 .account-button { display: inline-flex; align-items: center; gap: .45rem; border: 0; background: transparent; }
