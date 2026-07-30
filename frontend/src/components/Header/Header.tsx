@@ -1,4 +1,5 @@
 import { ChevronDown, CircleUserRound, ExternalLink, Menu, Search, ShoppingBasket } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import { navigationItems } from '../../features/navigation/navigation-items'
 
 interface HeaderProps {
@@ -7,6 +8,48 @@ interface HeaderProps {
 }
 
 export function Header({ searchTerm, onSearchChange }: HeaderProps) {
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const navigationRef = useRef<HTMLElement>(null)
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const cancelClose = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+  }
+
+  const openCategoryMenu = (label: string) => {
+    cancelClose()
+    setOpenMenu(label)
+  }
+
+  const scheduleClose = () => {
+    cancelClose()
+    closeTimeoutRef.current = setTimeout(() => setOpenMenu(null), 180)
+  }
+
+  useEffect(() => {
+    const closeOnOutsideClick = (event: MouseEvent) => {
+      if (!navigationRef.current?.contains(event.target as Node)) {
+        setOpenMenu(null)
+      }
+    }
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpenMenu(null)
+    }
+
+    document.addEventListener('mousedown', closeOnOutsideClick)
+    document.addEventListener('keydown', closeOnEscape)
+
+    return () => {
+      document.removeEventListener('mousedown', closeOnOutsideClick)
+      document.removeEventListener('keydown', closeOnEscape)
+      cancelClose()
+    }
+  }, [])
+
   return (
     <header className="site-header">
       <div className="topbar">
@@ -28,15 +71,29 @@ export function Header({ searchTerm, onSearchChange }: HeaderProps) {
         </div>
       </div>
 
-      <nav className="category-nav" aria-label="Categorías principales">
+      <nav className="category-nav" aria-label="Categorías principales" ref={navigationRef}>
         <div className="category-nav-items">
-          {navigationItems.map((item) => (
-            <a className="category-nav-item" key={item.label} href="#catalogo">
-              <img src={item.logoUrl} alt="" />
-              <span>{item.label}</span>
-              <ChevronDown aria-hidden="true" size={14} strokeWidth={2.3} />
-            </a>
-          ))}
+          {navigationItems.map((item) => {
+            const isOpen = openMenu === item.label
+            const menuId = `category-menu-${item.label.toLowerCase().replaceAll(' ', '-')}`
+
+            return (
+              <div className="category-menu" key={item.label} onMouseEnter={() => openCategoryMenu(item.label)} onMouseLeave={scheduleClose}>
+                <button aria-controls={menuId} aria-expanded={isOpen} className="category-nav-item" onFocus={() => openCategoryMenu(item.label)} type="button">
+                  <img src={item.logoUrl} alt="" />
+                  <span>{item.label}</span>
+                  <ChevronDown aria-hidden="true" className={isOpen ? 'is-open' : undefined} size={14} strokeWidth={2.3} />
+                </button>
+
+                <div aria-hidden={!isOpen} className={`category-dropdown${isOpen ? ' is-open' : ''}`} id={menuId}>
+                    <a href="#catalogo">Ver todo</a>
+                    {item.categories.map((category, index) => (
+                      <a className={index === 0 ? 'is-highlighted' : undefined} href="#catalogo" key={category}>{category}</a>
+                    ))}
+                </div>
+              </div>
+            )
+          })}
         </div>
         <a className="merchandising-link" href="#catalogo"><span>Merchandising</span><ExternalLink aria-hidden="true" size={21} /></a>
       </nav>

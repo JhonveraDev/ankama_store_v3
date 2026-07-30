@@ -34,3 +34,17 @@
 
 .category-nav { display: flex; align-items: center; justify-content: space-between; min-height: 68px; overflow: hidden; padding: .5rem 1rem; background: #f4f4f3 url('/media/general/game_navbar_bg.png') center / cover no-repeat; color: #262624; white-space: nowrap; }.category-nav a { padding-bottom: 0; }.category-nav a::after { display: none; }.category-nav-items { display: flex; align-items: center; gap: clamp(.9rem, 1.6vw, 2rem); min-width: 0; overflow-x: auto; scrollbar-width: none; }.category-nav-items::-webkit-scrollbar { display: none; }.category-nav-item { display: inline-flex; flex: none; align-items: center; gap: .45rem; color: inherit; font-size: .95rem; font-weight: 450; }.category-nav-item img { width: 36px; height: 36px; object-fit: contain; }.category-nav-item svg { flex: none; }.merchandising-link { display: inline-flex; flex: none; align-items: center; gap: 1.1rem; margin-left: 1.25rem; padding: .65rem 1rem; border-radius: 999px; background: #fff; box-shadow: 0 1px 1px rgb(0 0 0 / 5%); font-size: .9rem; font-weight: 400; }
 @media (max-width: 760px) { .category-nav { min-height: 56px; padding: .35rem .75rem; }.category-nav-items { gap: 1rem; }.category-nav-item { font-size: .85rem; }.category-nav-item img { width: 30px; height: 30px; }.merchandising-link { display: none; } }
+
+/* Desplegables del menú de juegos. */
+.category-nav { overflow: visible; }
+.category-nav-items { overflow: visible; }
+.category-menu { position: relative; flex: none; }
+.category-nav-item { border: 0; border-radius: 12px; padding: .55rem .7rem; background: transparent; font-family: inherit; cursor: pointer; transition: background-color .18s ease; }
+.category-nav-item:hover, .category-nav-item[aria-expanded='true'] { background: rgb(255 255 255 / 88%); }
+.category-nav-item svg { transition: transform .18s ease; }
+.category-nav-item svg.is-open { transform: rotate(180deg); }
+.category-dropdown { position: absolute; z-index: 30; top: calc(100% + 1.2rem); left: 0; display: grid; min-width: 185px; padding: .7rem; border-radius: 0 0 8px 8px; background: #fff; box-shadow: 0 12px 28px rgb(27 30 32 / 22%); opacity: 0; pointer-events: none; transform: translateY(-5px); visibility: hidden; transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s; }
+.category-dropdown.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); visibility: visible; transition-delay: 0s; }
+.category-dropdown a { display: block; border-radius: 10px; padding: .72rem 1rem; color: #282725; font-size: .9rem; font-weight: 450; text-decoration: none; transition: background-color .16s ease; }
+.category-dropdown a:first-child { font-weight: 700; }
+.category-dropdown a:hover, .category-dropdown a:focus-visible, .category-dropdown a.is-highlighted { outline: 0; background: #ededed; }
