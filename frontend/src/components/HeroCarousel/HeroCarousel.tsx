@@ -8,8 +8,6 @@ interface HeroCarouselProps {
 
 export function HeroCarousel({ slides }: HeroCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [loadedImageUrl, setLoadedImageUrl] = useState<string | null>(null)
-  const activeSlide = slides[activeIndex]
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -19,33 +17,17 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
     return () => window.clearInterval(timer)
   }, [slides.length])
 
-  useEffect(() => {
-    let isCurrentSlide = true
-    const image = new Image()
-
-    image.onload = () => {
-      if (isCurrentSlide) {
-        setLoadedImageUrl(activeSlide.imageUrl)
-      }
-    }
-    image.src = activeSlide.imageUrl
-
-    return () => {
-      isCurrentSlide = false
-    }
-  }, [activeSlide.imageUrl])
-
   const goToPrevious = () => setActiveIndex((activeIndex - 1 + slides.length) % slides.length)
   const goToNext = () => setActiveIndex((activeIndex + 1) % slides.length)
 
   return (
-    <section className={`hero hero--${activeSlide.theme}`} aria-label="Promociones destacadas">
-      {loadedImageUrl === activeSlide.imageUrl && <img className="hero-image" src={activeSlide.imageUrl} alt="" />}
-      <div className="hero-content">
-        <p className="eyebrow">Explora sin límites</p>
-        <h1>{activeSlide.title}</h1>
-        <p>{activeSlide.description}</p>
-        <a href="#catalogo" className="hero-cta">Ver catálogo</a>
+    <section className="hero" aria-label="Promociones destacadas">
+      <div className="hero-track" style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
+        {slides.map((slide, index) => (
+          <div className="hero-slide" key={slide.imageUrl} aria-hidden={index !== activeIndex}>
+            <img className="hero-image" src={slide.imageUrl} alt={index === activeIndex ? slide.alt : ''} />
+          </div>
+        ))}
       </div>
 
       <div className="hero-controls">

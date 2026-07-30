@@ -1,27 +1,31 @@
 export interface BannerSlide {
-  title: string
-  description: string
   imageUrl: string
-  theme: 'violet' | 'amber' | 'teal'
+  alt: string
 }
 
 export const bannerSlides: BannerSlide[] = [
   {
-    title: 'Tu próxima aventura empieza aquí',
-    description: 'Descubre colecciones, accesorios y artículos para explorar nuevos mundos.',
-    imageUrl: '/media/banners/home-01.webp',
-    theme: 'violet',
+    imageUrl: '/media/banners/banner_01_large.jpg',
+    alt: 'Pack Convención 25 años de Ankama',
   },
   {
-    title: 'Colecciones que cuentan historias',
-    description: 'Encuentra piezas únicas para acompañar cada una de tus aventuras.',
-    imageUrl: '/media/banners/home-02.webp',
-    theme: 'amber',
+    imageUrl: '/media/banners/banner_02_large.jpg',
+    alt: 'Promoción destacada 2',
   },
   {
-    title: 'Hecho para quienes juegan',
-    description: 'Una tienda preparada para descubrir, guardar y compartir lo que te inspira.',
-    imageUrl: '/media/banners/home-03.webp',
-    theme: 'teal',
+    imageUrl: '/media/banners/banner_03_large.jpg',
+    alt: 'Promoción destacada 3',
+  },
+  {
+    imageUrl: '/media/banners/banner_04_large.jpg',
+    alt: 'Promoción destacada 4',
+  },
+  {
+    imageUrl: '/media/banners/banner_05_large.jpg',
+    alt: 'Promoción destacada 5',
+  },
+  {
+    imageUrl: '/media/banners/banner_06_large.jpg',
+    alt: 'Promoción destacada 6',
   },
 ]
