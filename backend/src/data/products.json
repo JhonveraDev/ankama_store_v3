@@ -21,7 +21,7 @@
     "game": "DOFUS",
     "category": "suscripciones",
     "price": { "amount": 18000, "currency": "COP" },
-    "imageUrl": "/media/products/dofus/original_101.png",
+    "imageUrl": "/media/products/dofus/original_102.png",
     "stock": 999,
     "isFeatured": true,
     "isAvailable": true
@@ -47,7 +47,7 @@
     "game": "DOFUS",
     "category": "coleccionables",
     "price": { "amount": 26000, "currency": "COP" },
-    "imageUrl": "/media/products/dofus/original_101.png",
+    "imageUrl": "/media/products/dofus/original_102.png",
     "stock": 8,
     "badge": "LIMITADO",
     "isFeatured": true,
