@@ -5,6 +5,11 @@ export interface ProductPrice {
   currency: string
 }
 
+export interface ProductDiscount {
+  originalAmount: number
+  percentage: number
+}
+
 export interface Product {
   id: string
   slug: string
@@ -14,6 +19,11 @@ export interface Product {
   category: string
   price: ProductPrice
   imageUrl: string
+  gallery?: string[]
+  shortDescription?: string
+  discount?: ProductDiscount
+  tags?: string[]
+  details?: string[]
   stock: number
   badge?: string
   isFeatured: boolean
