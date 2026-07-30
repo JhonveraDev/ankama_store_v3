@@ -1,16 +1,16 @@
 import { ChevronDown, CircleUserRound, ExternalLink, Menu, Search, ShoppingBasket } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { navigationItems } from '../../features/navigation/navigation-items'
 
-interface HeaderProps {
-  searchTerm: string
-  onSearchChange: (value: string) => void
-}
-
-export function Header({ searchTerm, onSearchChange }: HeaderProps) {
+export function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const navigationRef = useRef<HTMLElement>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const searchTerm = location.pathname === '/buscar' ? (searchParams.get('q') ?? '') : ''
 
   const cancelClose = () => {
     if (closeTimeoutRef.current) {
@@ -27,6 +27,17 @@ export function Header({ searchTerm, onSearchChange }: HeaderProps) {
   const scheduleClose = () => {
     cancelClose()
     closeTimeoutRef.current = setTimeout(() => setOpenMenu(null), 180)
+  }
+
+  const handleSearchChange = (value: string) => {
+    const query = value.trim()
+
+    if (!query) {
+      navigate('/')
+      return
+    }
+
+    navigate(`/buscar?q=${encodeURIComponent(query)}`, { replace: true })
   }
 
   useEffect(() => {
@@ -61,7 +72,7 @@ export function Header({ searchTerm, onSearchChange }: HeaderProps) {
         <label className="search-box">
           <span className="sr-only">Buscar productos</span>
           <Search aria-hidden="true" size={20} />
-          <input value={searchTerm} onChange={(event) => onSearchChange(event.target.value)} placeholder="Buscar productos" type="search" />
+          <input value={searchTerm} onChange={(event) => handleSearchChange(event.target.value)} placeholder="Buscar productos" type="search" />
         </label>
 
         <div className="header-actions">

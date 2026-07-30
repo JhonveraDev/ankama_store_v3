@@ -7,7 +7,6 @@ interface ProductCatalogProps {
   products: Product[]
   isLoading: boolean
   isError: boolean
-  searchTerm: string
   onRetry: () => void
 }
 
@@ -15,13 +14,11 @@ function formatGameName(game: string): string {
   return game.replaceAll('_', ' ').replace(/\b\w/g, (character) => character.toUpperCase())
 }
 
-export function ProductCatalog({ products, isLoading, isError, searchTerm, onRetry }: ProductCatalogProps) {
+export function ProductCatalog({ products, isLoading, isError, onRetry }: ProductCatalogProps) {
   const [activeGame, setActiveGame] = useState<string>('ALL')
   const games = [...new Set(products.map((product) => product.game))]
-  const normalizedSearchTerm = searchTerm.toLowerCase()
   const filteredProducts = products.filter((product) =>
-    (activeGame === 'ALL' || product.game === activeGame)
-    && `${product.name} ${product.description} ${product.category}`.toLowerCase().includes(normalizedSearchTerm),
+    activeGame === 'ALL' || product.game === activeGame,
   )
 
   return (
@@ -59,7 +56,7 @@ export function ProductCatalog({ products, isLoading, isError, searchTerm, onRet
         {!isLoading && !isError && filteredProducts.length === 0 && (
           <div className="catalog-message catalog-message--empty">
             <PackageOpen size={38} />
-            <div><h3>{searchTerm ? 'No encontramos resultados' : 'El catálogo estará disponible pronto'}</h3><p>{searchTerm ? 'Prueba con otra búsqueda.' : 'Añade productos al archivo JSON para mostrarlos aquí.'}</p></div>
+            <div><h3>El catálogo estará disponible pronto</h3><p>Añade productos al archivo JSON para mostrarlos aquí.</p></div>
           </div>
         )}
         {filteredProducts.length > 0 && <div className="product-grid" key={activeGame}>{filteredProducts.map((product) => <ProductCard key={product.id} product={product} />)}</div>}

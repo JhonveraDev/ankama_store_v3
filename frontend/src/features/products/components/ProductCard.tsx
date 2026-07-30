@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import type { Product } from '../../../types/product'
 
 interface ProductCardProps {
@@ -6,7 +7,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <article className="product-card">
+    <Link className="product-card" to={`/productos/${product.slug}`}>
       <div className="product-image-wrap">
         <img src={product.imageUrl} alt={product.name} className="product-image" onError={(event) => { event.currentTarget.hidden = true }} />
         {product.badge && <span className="product-tag">{product.badge}</span>}
@@ -19,6 +20,6 @@ export function ProductCard({ product }: ProductCardProps) {
           {new Intl.NumberFormat('es-CO', { style: 'currency', currency: product.price.currency }).format(product.price.amount)}
         </p>
       </div>
-    </article>
+    </Link>
   )
 }
