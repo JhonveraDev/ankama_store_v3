@@ -114,7 +114,7 @@ export function Header() {
           </div>
         })}
       </div>
-      <a className="merchandising-link" href="#catalogo"><span>Merchandising</span><ExternalLink aria-hidden="true" size={21} /></a>
+      <a className="merchandising-link" href="https://github.com/JhonveraDev" rel="noreferrer" target="_blank"><span>Github</span><ExternalLink aria-hidden="true" size={21} /></a>
     </nav>
   </header>
 }
