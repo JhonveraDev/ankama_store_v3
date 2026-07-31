@@ -1,4 +1,4 @@
-export type ProductGame = 'DOFUS' | 'WAKFU' | 'DOFUS_RETRO'
+export type ProductGame = string
 
 export interface ProductPrice {
   amount: number
@@ -17,6 +17,7 @@ export interface Product {
   description: string
   game: ProductGame
   category: string
+  subcategory?: string
   price: ProductPrice
   imageUrl: string
   gallery?: string[]

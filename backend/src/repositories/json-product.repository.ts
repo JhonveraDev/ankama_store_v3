@@ -8,7 +8,7 @@ const productSchema = z.object({
   slug: z.string().min(1),
   name: z.string().min(1),
   description: z.string().min(1),
-  game: z.enum(['DOFUS', 'WAKFU', 'DOFUS_RETRO']),
+  game: z.string().min(1),
   category: z.string().min(1),
   price: z.object({
     amount: z.number().int().nonnegative(),

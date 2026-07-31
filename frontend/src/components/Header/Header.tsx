@@ -2,6 +2,7 @@ import { ChevronDown, CircleUserRound, ExternalLink, Globe2, History, LogOut, Me
 import { type FormEvent, useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { navigationItems } from '../../features/navigation/navigation-items'
+import { getNavigationPath } from '../../features/navigation/navigation-routes'
 import { useAuth } from '../../features/auth/hooks/use-auth'
 import { useCart } from '../../features/cart/hooks/use-cart'
 
@@ -110,7 +111,7 @@ export function Header() {
           const menuId = `category-menu-${item.label.toLowerCase().replaceAll(' ', '-')}`
           return <div className="category-menu" key={item.label} onMouseEnter={() => openCategoryMenu(item.label)} onMouseLeave={scheduleClose}>
             <button aria-controls={menuId} aria-expanded={isOpen} className="category-nav-item" onFocus={() => openCategoryMenu(item.label)} type="button"><img src={item.logoUrl} alt="" /><span>{item.label}</span><ChevronDown aria-hidden="true" className={isOpen ? 'is-open' : undefined} size={14} strokeWidth={2.3} /></button>
-            <div aria-hidden={!isOpen} className={`category-dropdown${isOpen ? ' is-open' : ''}`} id={menuId}><a href="#catalogo">Ver todo</a>{item.categories.map((category, index) => <a className={index === 0 ? 'is-highlighted' : undefined} href="#catalogo" key={category}>{category}</a>)}</div>
+            <div aria-hidden={!isOpen} className={`category-dropdown${isOpen ? ' is-open' : ''}`} id={menuId}><Link onClick={() => setOpenMenu(null)} to={getNavigationPath(item)}>Ver todo</Link>{item.categories.map((category, index) => <Link className={index === 0 ? 'is-highlighted' : undefined} key={category} onClick={() => setOpenMenu(null)} to={getNavigationPath(item, category)}>{category}</Link>)}</div>
           </div>
         })}
       </div>

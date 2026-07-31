@@ -1,4 +1,4 @@
-export type ProductGame = 'DOFUS' | 'WAKFU' | 'DOFUS_RETRO'
+export type ProductGame = string
 
 export interface ProductPrice {
   amount: number
