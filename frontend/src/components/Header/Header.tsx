@@ -1,6 +1,6 @@
 import { ChevronDown, CircleUserRound, ExternalLink, Menu, Search, ShoppingBasket } from 'lucide-react'
 import { type FormEvent, useEffect, useRef, useState } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { navigationItems } from '../../features/navigation/navigation-items'
 
 export function Header() {
@@ -85,7 +85,7 @@ export function Header() {
 
         <div className="header-actions">
           <button className="icon-button" type="button" aria-label="Abrir carrito"><ShoppingBasket size={22} /></button>
-          <button className="account-button" type="button"><CircleUserRound size={22} /><span>Conectarse</span></button>
+          <Link className="account-button" to="/login"><CircleUserRound size={22} /><span>Conectarse</span></Link>
           <button className="mobile-menu-button" type="button" aria-label="Abrir menú"><Menu size={24} /></button>
         </div>
       </div>
