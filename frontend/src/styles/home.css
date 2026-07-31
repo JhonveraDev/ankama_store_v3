@@ -751,7 +751,7 @@
 .category-nav-items {
   display: flex;
   align-items: center;
-  gap: clamp(.9rem, .8vw, 2rem);
+  gap: 5px;
   min-width: 0;
   overflow-x: auto;
   scrollbar-width: none;
@@ -836,7 +836,7 @@
 .category-nav-item {
   border: 0;
   border-radius: 8px;
-  padding: .25rem .9rem .55rem 0;
+  padding: 6px 12px 6px 0;
   background: transparent;
   font-family: inherit;
   cursor: pointer;
