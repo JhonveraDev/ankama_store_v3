@@ -10,6 +10,7 @@ import { CheckboxField } from './CheckboxField'
 import { PasswordField } from './PasswordField'
 import { SelectField } from './SelectField'
 import { TextField } from './TextField'
+import { useAuth } from '../hooks/use-auth'
 
 const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 const currentYear = new Date().getFullYear()
@@ -17,11 +18,13 @@ const currentYear = new Date().getFullYear()
 export function RegisterForm() {
   const [submissionError, setSubmissionError] = useState('')
   const navigate = useNavigate()
+  const { setAuthenticatedUser } = useAuth()
   const { formState: { errors, isSubmitting }, handleSubmit, register } = useForm<RegisterValues>({ defaultValues: { receiveNews: false }, resolver: zodResolver(registerSchema), mode: 'onBlur' })
   const onSubmit = async (values: RegisterValues) => {
     setSubmissionError('')
     try {
-      await authService.register(values)
+      const result = await authService.register(values)
+      setAuthenticatedUser(result.user)
       navigate('/register/success', { state: { email: values.email } })
     } catch (error) {
       setSubmissionError(error instanceof Error ? error.message : 'No fue posible crear la cuenta.')

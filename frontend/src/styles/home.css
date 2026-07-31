@@ -1953,3 +1953,33 @@
 
 .auth-submission-message--error { color: #bb3e31; }
 .auth-success-card { display: grid; justify-items: center; gap: .85rem; text-align: center; }.auth-success-card > svg { color: #3c8949; }.auth-success-card h1 { margin: .2rem 0; }.auth-success-card p { max-width: 30ch; margin: 0; color: #5f5d58; line-height: 1.5; }.auth-success-card .auth-button { display: grid; width: 100%; place-items: center; margin-top: 1rem; text-decoration: none; }
+
+/* Panel de sesión en el encabezado. */
+.header-actions { gap: .65rem; }
+.guest-actions { display: inline-flex; align-items: center; gap: .45rem; }
+.account-button, .register-button { min-height: 38px; border-radius: 999px; padding: .55rem .78rem; color: #292927; font-size: .84rem; font-weight: 700; text-decoration: none; transition: background-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+.account-button { border: 1px solid #aaa9a5; background: #fff; }
+.register-button { background: #292927; color: #fff; }
+.account-button:hover, .register-button:hover { box-shadow: 0 4px 10px rgb(0 0 0 / 14%); transform: translateY(-1px); }
+.user-menu { position: relative; }
+.user-panel-trigger { display: inline-flex; align-items: center; min-height: 44px; gap: .48rem; border: 0; border-radius: 999px; padding: .25rem .48rem .25rem .82rem; background: #fff; color: #3f3d39; box-shadow: 0 1px 0 rgb(0 0 0 / 7%); cursor: pointer; font-family: inherit; transition: box-shadow .18s ease, transform .18s ease; }
+.user-panel-trigger:hover, .user-panel-trigger[aria-expanded='true'] { box-shadow: 0 4px 12px rgb(0 0 0 / 15%); transform: translateY(-1px); }
+.user-panel-trigger:focus-visible, .user-dropdown button:focus-visible, .language-button:focus-visible { outline: 3px solid rgb(0 187 197 / 32%); outline-offset: 2px; }
+.user-panel-name { max-width: 130px; overflow: hidden; font-size: .8rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.user-balance { display: inline-flex; align-items: baseline; gap: .1rem; color: #00b6c5; font-size: .87rem; font-weight: 800; }
+.user-balance b { color: #00a9bb; font-size: .7rem; }
+.user-avatar { width: 34px; height: 34px; border-radius: 50%; background: #cec4dd; object-fit: cover; }
+.user-panel-trigger > svg { color: #797773; transition: transform .2s ease; }
+.user-panel-trigger > svg.is-open { transform: rotate(180deg); }
+.user-dropdown { position: absolute; z-index: 45; top: calc(100% + 11px); right: 0; display: grid; width: 192px; overflow: hidden; border-radius: 0 0 9px 9px; background: #fff; box-shadow: 0 10px 24px rgb(21 21 20 / 23%); opacity: 0; pointer-events: none; transform: translateY(-7px); visibility: hidden; transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s; }
+.user-dropdown.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); visibility: visible; transition-delay: 0s; }
+.user-dropdown button { display: flex; align-items: center; gap: .85rem; width: 100%; min-height: 42px; border: 0; padding: .68rem 1rem; background: transparent; color: #46443f; cursor: pointer; font-family: inherit; font-size: .82rem; text-align: left; transition: background-color .16s ease, color .16s ease; }
+.user-dropdown button:hover { background: #f0f0ef; color: #1e1d1b; }
+.user-dropdown button svg { color: #77746e; stroke-width: 1.4; }
+.user-dropdown .user-dropdown-logout { margin-top: .15rem; border-top: 1px solid #eee; }
+.language-button { display: inline-flex; align-items: center; gap: .28rem; width: 42px; height: 42px; justify-content: center; border: 0; border-radius: 50%; background: transparent; color: #33322f; cursor: pointer; }
+.language-button:hover { background: rgb(255 255 255 / 68%); }
+.language-button img { width: 23px; height: 23px; border-radius: 50%; object-fit: cover; }
+
+@media (max-width: 900px) { .topbar { gap: 1rem; padding-inline: 2vw; }.user-panel-name { max-width: 92px; }.language-button { display: none; } }
+@media (max-width: 760px) { .header-actions { gap: .4rem; }.guest-actions .account-button { width: 38px; height: 38px; min-height: 38px; justify-content: center; padding: 0; }.guest-actions .account-button span, .guest-actions .register-button { display: none; }.user-panel-trigger { min-height: 38px; gap: .32rem; padding: .18rem .35rem .18rem .55rem; }.user-panel-name { max-width: 78px; font-size: .72rem; }.user-balance { font-size: .76rem; }.user-avatar { width: 30px; height: 30px; }.user-dropdown { width: min(210px, calc(100vw - 1.5rem)); right: 0; }.language-button { display: none; } }

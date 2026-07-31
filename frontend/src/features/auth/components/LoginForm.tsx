@@ -8,15 +8,18 @@ import { AuthButton } from './AuthButton'
 import { AuthLogo } from './AuthLogo'
 import { PasswordField } from './PasswordField'
 import { TextField } from './TextField'
+import { useAuth } from '../hooks/use-auth'
 
 export function LoginForm() {
   const [submissionError, setSubmissionError] = useState('')
   const navigate = useNavigate()
+  const { setAuthenticatedUser } = useAuth()
   const { formState: { errors, isSubmitting }, handleSubmit, register } = useForm<LoginValues>({ resolver: zodResolver(loginSchema), mode: 'onBlur' })
   const onSubmit = async (values: LoginValues) => {
     setSubmissionError('')
     try {
-      await authService.login(values)
+      const result = await authService.login(values)
+      setAuthenticatedUser(result.user)
       navigate('/')
     } catch (error) {
       setSubmissionError(error instanceof Error ? error.message : 'No fue posible iniciar sesión.')
