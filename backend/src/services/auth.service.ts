@@ -6,8 +6,12 @@ import { comparePassword, hashPassword } from '../utils/password.js'
 
 export interface RegisterInput {
   name: string
+  firstName: string
+  lastName: string
   email: string
   password: string
+  birthDate: Date
+  receiveNews: boolean
 }
 
 export interface LoginInput {
@@ -28,8 +32,12 @@ export class AuthService {
     const passwordHash = await hashPassword(input.password)
     const user = await this.userRepository.create({
       name: input.name,
+      firstName: input.firstName,
+      lastName: input.lastName,
       email: input.email,
       passwordHash,
+      birthDate: input.birthDate,
+      receiveNews: input.receiveNews,
     })
 
     return this.createAuthResponse(user)

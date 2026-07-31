@@ -7,7 +7,11 @@ export interface AuthenticatedUser {
 
 export interface PublicUser extends AuthenticatedUser {
   name: string
+  firstName: string
+  lastName: string
   email: string
+  birthDate: Date
+  receiveNews: boolean
 }
 
 export interface AuthResponse {

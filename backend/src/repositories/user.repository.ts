@@ -6,8 +6,12 @@ export interface UserWithPassword extends PublicUser {
 
 export interface CreateUserData {
   name: string
+  firstName: string
+  lastName: string
   email: string
   passwordHash: string
+  birthDate: Date
+  receiveNews: boolean
   role?: UserRole
 }
 

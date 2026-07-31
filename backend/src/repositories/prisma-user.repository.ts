@@ -6,7 +6,11 @@ import type { PublicUser } from '../types/auth.js'
 function toPublicUser(user: {
   id: string
   name: string
+  firstName: string
+  lastName: string
   email: string
+  birthDate: Date
+  receiveNews: boolean
   role: Role
 }): PublicUser {
   return user
