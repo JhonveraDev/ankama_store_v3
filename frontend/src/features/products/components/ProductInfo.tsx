@@ -3,6 +3,8 @@ import { useState } from 'react'
 import type { Product } from '../../../types/product'
 import { ProductPrice } from './ProductPrice'
 import { QuantitySelector } from './QuantitySelector'
+import { useCart } from '../../cart/hooks/use-cart'
+import { useNavigate } from 'react-router-dom'
 
 interface ProductInfoProps {
   product: Product
@@ -15,10 +17,12 @@ function formatGameName(game: Product['game']): string {
 export function ProductInfo({ product }: ProductInfoProps) {
   const [quantity, setQuantity] = useState(1)
   const [notice, setNotice] = useState('')
+  const { addItem } = useCart()
+  const navigate = useNavigate()
   const isInStock = product.isAvailable && product.stock > 0
 
-  const handleAddToCart = () => setNotice(`${quantity} ${quantity === 1 ? 'unidad añadida' : 'unidades añadidas'} a tu selección.`)
-  const handleBuyNow = () => setNotice('La compra inmediata estará disponible próximamente.')
+  const handleAddToCart = () => { addItem(product, quantity); setNotice(`${quantity} ${quantity === 1 ? 'unidad añadida' : 'unidades añadidas'} a tu carrito.`) }
+  const handleBuyNow = () => { addItem(product, quantity); navigate('/cart') }
 
   return (
     <section className="product-info">

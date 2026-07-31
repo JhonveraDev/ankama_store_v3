@@ -7,6 +7,7 @@ import { NotFoundPage } from '../pages/NotFoundPage'
 import { ProductDetailPage } from '../pages/ProductDetailPage'
 import { SearchResultsPage } from '../pages/SearchResultsPage'
 import { RegisterPage } from '../pages/RegisterPage'
+import { CartPage } from '../pages/CartPage'
 
 export function AppRouter() {
   return (
@@ -15,6 +16,7 @@ export function AppRouter() {
         <Route index element={<HomePage />} />
         <Route path="buscar" element={<SearchResultsPage />} />
         <Route path="productos/:slug" element={<ProductDetailPage />} />
+        <Route path="cart" element={<CartPage />} />
       </Route>
       <Route element={<AuthLayout />}>
         <Route path="login" element={<LoginPage />} />

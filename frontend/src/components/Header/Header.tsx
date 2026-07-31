@@ -2,6 +2,7 @@ import { ChevronDown, CircleUserRound, ExternalLink, Menu, Search, ShoppingBaske
 import { type FormEvent, useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { navigationItems } from '../../features/navigation/navigation-items'
+import { useCart } from '../../features/cart/hooks/use-cart'
 
 export function Header() {
   const [searchParams] = useSearchParams()
@@ -12,6 +13,7 @@ export function Header() {
   const navigationRef = useRef<HTMLElement>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const searchTerm = location.pathname === '/buscar' ? (searchParams.get('q') ?? '') : ''
+  const { totalQuantity } = useCart()
 
   const cancelClose = () => {
     if (closeTimeoutRef.current) {
@@ -84,7 +86,7 @@ export function Header() {
         </form>
 
         <div className="header-actions">
-          <button className="icon-button" type="button" aria-label="Abrir carrito"><ShoppingBasket size={22} /></button>
+          <Link className="icon-button cart-header-button" to="/cart" aria-label="Abrir carrito"><ShoppingBasket size={22} />{totalQuantity > 0 && <span>{totalQuantity}</span>}</Link>
           <Link className="account-button" to="/login"><CircleUserRound size={22} /><span>Conectarse</span></Link>
           <button className="mobile-menu-button" type="button" aria-label="Abrir menú"><Menu size={24} /></button>
         </div>
