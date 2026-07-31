@@ -9,6 +9,8 @@ import { SearchResultsPage } from '../pages/SearchResultsPage'
 import { RegisterPage } from '../pages/RegisterPage'
 import { RegisterSuccessPage } from '../pages/RegisterSuccessPage'
 import { CartPage } from '../pages/CartPage'
+import { CheckoutPage } from '../pages/CheckoutPage'
+import { ProtectedRoute } from '../features/auth/components/ProtectedRoute'
 
 export function AppRouter() {
   return (
@@ -18,6 +20,7 @@ export function AppRouter() {
         <Route path="buscar" element={<SearchResultsPage />} />
         <Route path="productos/:slug" element={<ProductDetailPage />} />
         <Route path="cart" element={<CartPage />} />
+        <Route path="checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
       </Route>
       <Route element={<AuthLayout />}>
         <Route path="login" element={<LoginPage />} />

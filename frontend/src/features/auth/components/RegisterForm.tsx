@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { registerSchema, type RegisterValues } from '../schemas/auth-schemas'
 import { authService } from '../services/auth-service'
 import { AuthButton } from './AuthButton'
@@ -11,6 +11,7 @@ import { PasswordField } from './PasswordField'
 import { SelectField } from './SelectField'
 import { TextField } from './TextField'
 import { useAuth } from '../hooks/use-auth'
+import { getPostAuthDestination } from '../utils/auth-redirect'
 
 const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 const currentYear = new Date().getFullYear()
@@ -18,6 +19,7 @@ const currentYear = new Date().getFullYear()
 export function RegisterForm() {
   const [submissionError, setSubmissionError] = useState('')
   const navigate = useNavigate()
+  const location = useLocation()
   const { setAuthenticatedUser } = useAuth()
   const { formState: { errors, isSubmitting }, handleSubmit, register } = useForm<RegisterValues>({ defaultValues: { receiveNews: false }, resolver: zodResolver(registerSchema), mode: 'onBlur' })
   const onSubmit = async (values: RegisterValues) => {
@@ -25,7 +27,8 @@ export function RegisterForm() {
     try {
       const result = await authService.register(values)
       setAuthenticatedUser(result.user)
-      navigate('/register/success', { state: { email: values.email } })
+      const destination = getPostAuthDestination(location.state)
+      navigate(destination === '/' ? '/register/success' : destination, { replace: destination !== '/', state: destination === '/' ? { email: values.email } : undefined })
     } catch (error) {
       setSubmissionError(error instanceof Error ? error.message : 'No fue posible crear la cuenta.')
     }
