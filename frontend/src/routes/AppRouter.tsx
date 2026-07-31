@@ -7,6 +7,7 @@ import { NotFoundPage } from '../pages/NotFoundPage'
 import { ProductDetailPage } from '../pages/ProductDetailPage'
 import { SearchResultsPage } from '../pages/SearchResultsPage'
 import { RegisterPage } from '../pages/RegisterPage'
+import { RegisterSuccessPage } from '../pages/RegisterSuccessPage'
 import { CartPage } from '../pages/CartPage'
 
 export function AppRouter() {
@@ -21,6 +22,7 @@ export function AppRouter() {
       <Route element={<AuthLayout />}>
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="register/success" element={<RegisterSuccessPage />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

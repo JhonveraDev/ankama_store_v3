@@ -1952,3 +1952,4 @@
 @media (max-width: 760px) { .cart-page { grid-template-columns: 1fr; width: min(100% - 1.5rem, 620px); }.cart-item { grid-template-columns: 66px minmax(0, 1fr) auto; }.cart-item > img { width: 66px; height: 66px; }.cart-item-quantity { grid-column: 2; width: fit-content; }.cart-item-subtotal { grid-column: 3; grid-row: 2; min-width: 0; }.cart-summary { order: 2; } }
 
 .auth-submission-message--error { color: #bb3e31; }
+.auth-success-card { display: grid; justify-items: center; gap: .85rem; text-align: center; }.auth-success-card > svg { color: #3c8949; }.auth-success-card h1 { margin: .2rem 0; }.auth-success-card p { max-width: 30ch; margin: 0; color: #5f5d58; line-height: 1.5; }.auth-success-card .auth-button { display: grid; width: 100%; place-items: center; margin-top: 1rem; text-decoration: none; }

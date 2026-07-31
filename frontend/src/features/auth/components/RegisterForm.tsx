@@ -22,7 +22,7 @@ export function RegisterForm() {
     setSubmissionError('')
     try {
       await authService.register(values)
-      navigate('/')
+      navigate('/register/success', { state: { email: values.email } })
     } catch (error) {
       setSubmissionError(error instanceof Error ? error.message : 'No fue posible crear la cuenta.')
     }
