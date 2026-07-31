@@ -1,15 +1,17 @@
 [
   {
-    "id": "dofus-set-explorador-esmeralda",
-    "slug": "set-explorador-esmeralda",
-    "name": "Set Explorador Esmeralda",
-    "description": "Un conjunto preparado para las rutas más exigentes.",
+    "id": "dofus-playa-vivo",
+    "slug": "playa-vivo",
+    "name": "Pack Playivivo",
+    "description": "¡Este verano, regálate una escapada a la playa en compañía de tu nuevo objeto viviente!",
     "game": "DOFUS",
-    "category": "packs",
-    "price": { "amount": 34000, "currency": "COP" },
-    "imageUrl": "/media/products/dofus/original_101.png",
-    "stock": 24,
-    "badge": "NOVEDAD",
+    "category": "suscripciones",
+    "price": {
+      "amount": 18000,
+      "currency": "COP"
+    },
+    "imageUrl": "/media/products/dofus/original_102.png",
+    "stock": 999,
     "isFeatured": true,
     "isAvailable": true
   },
@@ -20,7 +22,10 @@
     "description": "Acceso para continuar tu aventura durante un mes.",
     "game": "DOFUS",
     "category": "suscripciones",
-    "price": { "amount": 18000, "currency": "COP" },
+    "price": {
+      "amount": 18000,
+      "currency": "COP"
+    },
     "imageUrl": "/media/products/dofus/original_102.png",
     "stock": 999,
     "isFeatured": true,
@@ -33,7 +38,10 @@
     "description": "Una nueva forma de afrontar cada desafío.",
     "game": "DOFUS",
     "category": "servicios",
-    "price": { "amount": 47000, "currency": "COP" },
+    "price": {
+      "amount": 47000,
+      "currency": "COP"
+    },
     "imageUrl": "/media/products/dofus/original_101.png",
     "stock": 999,
     "isFeatured": false,
@@ -46,7 +54,10 @@
     "description": "Un compañero brillante para tus expediciones.",
     "game": "DOFUS",
     "category": "coleccionables",
-    "price": { "amount": 26000, "currency": "COP" },
+    "price": {
+      "amount": 26000,
+      "currency": "COP"
+    },
     "imageUrl": "/media/products/dofus/original_102.png",
     "stock": 8,
     "badge": "LIMITADO",
@@ -60,7 +71,10 @@
     "description": "Una colección para surcar los cielos del Mundo de los Doce.",
     "game": "WAKFU",
     "category": "packs",
-    "price": { "amount": 39000, "currency": "COP" },
+    "price": {
+      "amount": 39000,
+      "currency": "COP"
+    },
     "imageUrl": "/media/products/wakfu/original_101.png",
     "stock": 17,
     "badge": "NOVEDAD",
@@ -74,7 +88,10 @@
     "description": "Disfruta un mes completo de aventuras en Wakfu.",
     "game": "WAKFU",
     "category": "suscripciones",
-    "price": { "amount": 18000, "currency": "COP" },
+    "price": {
+      "amount": 18000,
+      "currency": "COP"
+    },
     "imageUrl": "/media/products/wakfu/original_101.png",
     "stock": 999,
     "isFeatured": false,
@@ -87,7 +104,10 @@
     "description": "Un detalle cosmético inspirado en las profundidades.",
     "game": "WAKFU",
     "category": "coleccionables",
-    "price": { "amount": 22000, "currency": "COP" },
+    "price": {
+      "amount": 22000,
+      "currency": "COP"
+    },
     "imageUrl": "/media/products/wakfu/original_101.png",
     "stock": 12,
     "isFeatured": true,
@@ -100,7 +120,10 @@
     "description": "Un pack inspirado en los primeros grandes viajes.",
     "game": "DOFUS_RETRO",
     "category": "packs",
-    "price": { "amount": 31000, "currency": "COP" },
+    "price": {
+      "amount": 31000,
+      "currency": "COP"
+    },
     "imageUrl": "/media/products/dofus-retro/original_101.png",
     "stock": 15,
     "badge": "RETRO",
@@ -114,7 +137,10 @@
     "description": "Extiende tu tiempo de juego en el universo clásico.",
     "game": "DOFUS_RETRO",
     "category": "suscripciones",
-    "price": { "amount": 16000, "currency": "COP" },
+    "price": {
+      "amount": 16000,
+      "currency": "COP"
+    },
     "imageUrl": "/media/products/dofus-retro/original_101.png",
     "stock": 999,
     "isFeatured": false,
@@ -127,7 +153,26 @@
     "description": "Renueva el aspecto de tu personaje clásico.",
     "game": "DOFUS_RETRO",
     "category": "servicios",
-    "price": { "amount": 14000, "currency": "COP" },
+    "price": {
+      "amount": 14000,
+      "currency": "COP"
+    },
+    "imageUrl": "/media/products/dofus-retro/original_101.png",
+    "stock": 999,
+    "isFeatured": true,
+    "isAvailable": true
+  },
+  {
+    "id": "dofus-cambio-apariencia",
+    "slug": "cambio-apariencia",
+    "name": "Cambio de Apariencia Retro",
+    "description": "Renueva el aspecto de tu personaje clásico.",
+    "game": "DOFUS",
+    "category": "Abononos",
+    "price": {
+      "amount": 14000,
+      "currency": "COP"
+    },
     "imageUrl": "/media/products/dofus-retro/original_101.png",
     "stock": 999,
     "isFeatured": true,
