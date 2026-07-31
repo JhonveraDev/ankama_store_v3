@@ -9,6 +9,7 @@ function toPublicUser(user: {
   firstName: string
   lastName: string
   email: string
+  username: string
   birthDate: Date
   receiveNews: boolean
   role: Role
@@ -25,6 +26,10 @@ export class PrismaUserRepository implements UserRepository {
 
   async findByEmail(email: string): Promise<UserWithPassword | null> {
     return prisma.user.findUnique({ where: { email } })
+  }
+
+  async findByUsername(username: string): Promise<UserWithPassword | null> {
+    return prisma.user.findUnique({ where: { username } })
   }
 
   async findById(id: string): Promise<PublicUser | null> {

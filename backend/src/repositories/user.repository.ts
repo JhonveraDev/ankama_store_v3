@@ -9,6 +9,7 @@ export interface CreateUserData {
   firstName: string
   lastName: string
   email: string
+  username: string
   passwordHash: string
   birthDate: Date
   receiveNews: boolean
@@ -18,5 +19,6 @@ export interface CreateUserData {
 export interface UserRepository {
   create(data: CreateUserData): Promise<PublicUser>
   findByEmail(email: string): Promise<UserWithPassword | null>
+  findByUsername(username: string): Promise<UserWithPassword | null>
   findById(id: string): Promise<PublicUser | null>
 }

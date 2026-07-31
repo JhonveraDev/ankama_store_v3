@@ -15,11 +15,11 @@ export interface AuthService {
 
 export const authService: AuthService = {
   async login(values) {
-    return submit('/auth/login', { email: values.identifier, password: values.password })
+    return submit('/auth/login', { login: values.identifier.trim(), password: values.password })
   },
   async register(values) {
     const birthDate = new Date(Date.UTC(Number(values.year), Number(values.month) - 1, Number(values.day))).toISOString()
-    return submit('/auth/register', { name: `${values.firstName.trim()} ${values.lastName.trim()}`, firstName: values.firstName.trim(), lastName: values.lastName.trim(), email: values.email.trim(), password: values.password, birthDate, receiveNews: values.receiveNews })
+    return submit('/auth/register', { name: `${values.firstName.trim()} ${values.lastName.trim()}`, firstName: values.firstName.trim(), lastName: values.lastName.trim(), email: values.email.trim(), username: values.username.trim(), password: values.password, birthDate, receiveNews: values.receiveNews })
   },
 }
 

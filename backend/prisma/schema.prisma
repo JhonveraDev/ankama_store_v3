@@ -18,6 +18,7 @@ model User {
   firstName    String
   lastName     String
   email        String   @unique
+  username     String   @unique
   passwordHash String
   birthDate    DateTime
   receiveNews  Boolean  @default(false)

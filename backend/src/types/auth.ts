@@ -10,6 +10,7 @@ export interface PublicUser extends AuthenticatedUser {
   firstName: string
   lastName: string
   email: string
+  username: string
   birthDate: Date
   receiveNews: boolean
 }

@@ -11,13 +11,14 @@ const registerSchema = z.object({
   firstName: z.string().trim().min(1).max(80),
   lastName: z.string().trim().min(1).max(80),
   email: z.string().trim().email().transform((email) => email.toLowerCase()),
+  username: z.string().trim().min(4, 'El nombre de usuario debe tener al menos 4 caracteres.').max(20, 'El nombre de usuario no puede superar los 20 caracteres.').regex(/^[A-Za-z0-9_]+$/, 'El nombre de usuario solo puede contener letras, números y guion bajo.'),
   password: z.string().min(8).max(72),
   birthDate: z.coerce.date().refine((date) => date <= new Date(), 'La fecha de nacimiento no puede estar en el futuro.'),
   receiveNews: z.boolean(),
 })
 
 const loginSchema = z.object({
-  email: z.string().trim().email().transform((email) => email.toLowerCase()),
+  login: z.string().trim().min(1, 'Ingresa tu correo electrónico o nombre de usuario.'),
   password: z.string().min(1).max(72),
 })
 

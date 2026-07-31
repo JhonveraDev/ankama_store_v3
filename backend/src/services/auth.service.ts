@@ -9,13 +9,14 @@ export interface RegisterInput {
   firstName: string
   lastName: string
   email: string
+  username: string
   password: string
   birthDate: Date
   receiveNews: boolean
 }
 
 export interface LoginInput {
-  email: string
+  login: string
   password: string
 }
 
@@ -29,12 +30,19 @@ export class AuthService {
       throw new AppError('El correo electrónico ya está registrado.', 409)
     }
 
+    const existingUsername = await this.userRepository.findByUsername(input.username)
+
+    if (existingUsername) {
+      throw new AppError('El nombre de usuario ya está en uso.', 409)
+    }
+
     const passwordHash = await hashPassword(input.password)
     const user = await this.userRepository.create({
       name: input.name,
       firstName: input.firstName,
       lastName: input.lastName,
       email: input.email,
+      username: input.username,
       passwordHash,
       birthDate: input.birthDate,
       receiveNews: input.receiveNews,
@@ -44,10 +52,11 @@ export class AuthService {
   }
 
   async login(input: LoginInput): Promise<AuthResponse> {
-    const user = await this.userRepository.findByEmail(input.email)
+    const user = await this.userRepository.findByEmail(input.login)
+      ?? await this.userRepository.findByUsername(input.login)
 
     if (!user || !(await comparePassword(input.password, user.passwordHash))) {
-      throw new AppError('Correo electrónico o contraseña inválidos.', 401)
+      throw new AppError('Credenciales inválidas.', 401)
     }
 
     return this.createAuthResponse(user)
