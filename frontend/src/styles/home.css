@@ -835,7 +835,7 @@
 
 .category-nav-item {
   border: 0;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: .25rem .9rem .55rem 0;
   background: transparent;
   font-family: inherit;
@@ -891,6 +891,8 @@
   font-weight: 450;
   text-decoration: none;
   transition: background-color .16s ease;
+  margin-top: 1.8px;
+  margin-bottom: 1.8px;
 }
 
 .category-dropdown a:first-child {
