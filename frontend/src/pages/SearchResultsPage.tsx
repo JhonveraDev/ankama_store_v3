@@ -2,6 +2,8 @@ import { AlertCircle, LoaderCircle, PackageOpen } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { ProductCard } from '../features/products/components/ProductCard'
+import { Pagination } from '../features/pagination/components/Pagination'
+import { usePagination } from '../features/pagination/hooks/use-pagination'
 import { useProducts } from '../features/products/hooks/use-products'
 import { filterProductsByName } from '../features/products/utils/filter-products'
 import type { ProductGame } from '../types/product'
@@ -13,13 +15,23 @@ function formatGameName(game: ProductGame): string {
 }
 
 export function SearchResultsPage() {
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const [activeGame, setActiveGame] = useState<GameFilter>('ALL')
   const query = searchParams.get('q') ?? ''
   const { data: products = [], isError, isLoading, refetch } = useProducts()
   const matchingProducts = useMemo(() => filterProductsByName(products, query), [products, query])
   const games = [...new Set(matchingProducts.map((product) => product.game))]
-  const visibleProducts = matchingProducts.filter((product) => activeGame === 'ALL' || product.game === activeGame)
+  const visibleProducts = useMemo(() => matchingProducts.filter((product) => activeGame === 'ALL' || product.game === activeGame), [activeGame, matchingProducts])
+  const pagination = usePagination({ currentPage: Number(searchParams.get('page')) || 1, items: visibleProducts })
+  const setPage = (page: number) => setSearchParams((current) => {
+    const next = new URLSearchParams(current)
+    next.set('page', String(page))
+    return next
+  })
+  const selectGame = (game: GameFilter) => {
+    setActiveGame(game)
+    setPage(1)
+  }
 
   return (
     <section className="search-results" aria-labelledby="search-results-title">
@@ -30,9 +42,9 @@ export function SearchResultsPage() {
 
         <fieldset className="search-game-filters">
           <legend>Filtrar por juego</legend>
-          <label><input checked={activeGame === 'ALL'} name="game" onChange={() => setActiveGame('ALL')} type="radio" /> Todos</label>
+          <label><input checked={activeGame === 'ALL'} name="game" onChange={() => selectGame('ALL')} type="radio" /> Todos</label>
           {games.map((game) => (
-            <label key={game}><input checked={activeGame === game} name="game" onChange={() => setActiveGame(game)} type="radio" /> {formatGameName(game)}</label>
+            <label key={game}><input checked={activeGame === game} name="game" onChange={() => selectGame(game)} type="radio" /> {formatGameName(game)}</label>
           ))}
         </fieldset>
       </aside>
@@ -43,7 +55,7 @@ export function SearchResultsPage() {
         {!isLoading && !isError && visibleProducts.length === 0 && (
           <div className="catalog-message catalog-message--empty"><PackageOpen size={38} /><div><h2>No encontramos productos</h2><p>Prueba con otro nombre o una búsqueda más corta.</p></div></div>
         )}
-        {visibleProducts.length > 0 && <div className="search-results-grid">{visibleProducts.map((product) => <ProductCard key={product.id} product={product} />)}</div>}
+        {visibleProducts.length > 0 && <><div className="search-results-grid" key={pagination.currentPage}>{pagination.items.map((product) => <ProductCard key={product.id} product={product} />)}</div><Pagination currentPage={pagination.currentPage} onPageChange={setPage} totalPages={pagination.totalPages} /></>}
       </div>
     </section>
   )
