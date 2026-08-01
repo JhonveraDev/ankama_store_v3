@@ -1,3 +1,4 @@
+import { GamesCarousel } from '../components/GamesCarousel/GamesCarousel'
 import { HeroCarousel } from '../components/HeroCarousel/HeroCarousel'
 import { ProductCatalog } from '../components/ProductCatalog/ProductCatalog'
 import { bannerSlides } from '../features/home/banner-slides'
@@ -7,6 +8,7 @@ export function HomePage() {
   return (
     <>
       <HeroCarousel slides={bannerSlides} />
+      <GamesCarousel />
       <ProductCatalog />
       <RecentlyViewedProducts />
     </>
