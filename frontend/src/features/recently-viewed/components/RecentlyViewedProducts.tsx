@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRecentlyViewed } from '../hooks/use-recently-viewed'
-import { RecentlyViewedCard } from './RecentlyViewedCard'
+import { ProductCard } from '../../products/components/ProductCard'
 
 export function RecentlyViewedProducts() {
   const { recentProducts } = useRecentlyViewed()
@@ -34,7 +34,7 @@ export function RecentlyViewedProducts() {
       <div className="recently-viewed-heading"><span aria-hidden="true" /><h2 id="recently-viewed-title">Tus últimos artículos consultados</h2></div>
       <div className="recently-viewed-carousel">
         {canScroll && <button aria-label="Ver productos anteriores" className="recently-viewed-arrow recently-viewed-arrow--previous" onClick={() => moveCarousel(-1)} type="button"><ChevronLeft size={24} /></button>}
-        <div className="recently-viewed-track" ref={trackRef}>{recentProducts.map((product) => <RecentlyViewedCard key={product.id} product={product} />)}</div>
+        <div className="recently-viewed-track" ref={trackRef}>{recentProducts.map((product) => <ProductCard key={product.id} product={product} />)}</div>
         {canScroll && <button aria-label="Ver más productos consultados" className="recently-viewed-arrow recently-viewed-arrow--next" onClick={() => moveCarousel(1)} type="button"><ChevronRight size={24} /></button>}
       </div>
     </section>

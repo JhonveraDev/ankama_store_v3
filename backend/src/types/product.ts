@@ -13,6 +13,7 @@ export interface Product {
   game: ProductGame
   category: string
   price: ProductPrice
+  ogrinePrice?: number
   imageUrl: string
   stock: number
   badge?: string
