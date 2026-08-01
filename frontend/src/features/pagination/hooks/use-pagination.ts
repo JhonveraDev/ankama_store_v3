@@ -14,7 +14,7 @@ export interface PaginationState<T> {
 }
 
 /** Slices any filtered collection without depending on its rendering context. */
-export function usePagination<T>({ currentPage, items, itemsPerPage = 12 }: UsePaginationOptions<T>): PaginationState<T> {
+export function usePagination<T>({ currentPage, items, itemsPerPage = 10 }: UsePaginationOptions<T>): PaginationState<T> {
   return useMemo(() => {
     const totalItems = items.length
     const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage))
