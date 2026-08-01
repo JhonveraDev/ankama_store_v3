@@ -35,10 +35,12 @@ export function SearchResultsPage() {
 
   return (
     <section className="search-results" aria-labelledby="search-results-title">
-      <aside className="search-results-sidebar">
+      <header className="search-results-heading">
         <div className="search-results-title-mark" aria-hidden="true" />
-        <h1 id="search-results-title">Resultados para “{query}”</h1>
-        <p className="search-results-count">{matchingProducts.length} {matchingProducts.length === 1 ? 'artículo' : 'artículos'}</p>
+        <h1 id="search-results-title">Mostrando resultados para “{query}”</h1>
+      </header>
+      <aside className="search-results-sidebar">
+        <p className="search-results-count"><strong>{matchingProducts.length}</strong> {matchingProducts.length === 1 ? 'elemento' : 'elementos'}</p>
 
         <fieldset className="search-game-filters">
           <legend>Filtrar por juego</legend>
