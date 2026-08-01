@@ -45,7 +45,7 @@ function NavigationCatalogContent({ category, navigationItem }: NavigationCatalo
           <header className="navigation-catalog-heading"><p className="section-kicker">{navigationItem.label}</p><h1>{title}</h1><p>{category ? `Encuentra artículos seleccionados de ${category}.` : `Explora todas las categorías disponibles para ${navigationItem.label}.`}</p></header>
           {catalog.totalItems ? <>
             <div className="navigation-catalog-meta"><span>{catalog.totalItems} productos</span><label>Ordenar por <select onChange={(event) => changeSort(event.target.value as SortOption)} value={sort}><option value="relevancia">Relevancia</option><option value="price-asc">Precio: menor a mayor</option><option value="price-desc">Precio: mayor a menor</option></select></label></div>
-            <ProductResults className="navigation-product-grid" currentPage={catalog.currentPage} onPageChange={catalog.setPage} products={catalog.items} totalPages={catalog.totalPages} />
+            <ProductResults currentPage={catalog.currentPage} onPageChange={catalog.setPage} products={catalog.items} totalPages={catalog.totalPages} />
           </> : <div className="catalog-message catalog-message--empty"><PackageOpen size={38} /><div><h3>Próximamente habrá productos aquí</h3><p>Esta categoría aún no tiene productos disponibles.</p></div></div>}
         </div>
       </div>
