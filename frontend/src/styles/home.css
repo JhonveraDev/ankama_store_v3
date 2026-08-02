@@ -2757,9 +2757,9 @@
 }
 
 .language-menu { position: relative; }
-.language-button { display: grid; width: 42px; height: 42px; place-items: center; border: 0; border-radius: 50%; padding: 0; background: transparent; cursor: pointer; transition: background-color .18s ease; }
+.language-button { display: grid; width: 48px; height: 48px; place-items: center; border: 0; border-radius: 50%; padding: 0; background: transparent; cursor: pointer; transition: background-color .18s ease; }
 .language-button:hover, .language-button[aria-expanded='true'] { background: rgb(255 255 255 / 68%); }
-.language-button img { width: 25px; height: 25px; border-radius: 50%; object-fit: cover; }
+.language-button img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
 .language-dropdown { position: absolute; z-index: 45; top: calc(100% + 9px); right: 0; display: grid; width: 142px; overflow: hidden; border-radius: 9px; background: #fff; box-shadow: 0 10px 24px rgb(21 21 20 / 20%); opacity: 0; pointer-events: none; transform: translateY(-6px); visibility: hidden; transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s; }.language-dropdown.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); visibility: visible; transition-delay: 0s; }.language-dropdown button { display: flex; align-items: center; gap: .65rem; width: 100%; border: 0; padding: .7rem .85rem; background: transparent; color: #45433f; cursor: pointer; font-family: inherit; font-size: .8rem; text-align: left; }.language-dropdown button:hover { background: #f0f0ef; }.language-dropdown span { display: grid; width: 23px; height: 23px; place-items: center; border-radius: 50%; background: #e8e7e3; color: #373530; font-size: .64rem; font-weight: 850; }
 
 @media (max-width: 900px) {
@@ -3685,7 +3685,7 @@
   overflow: hidden;
   width: min(1500px, 100%);
   margin: 0 auto;
-  padding: clamp(3.5rem, 6vw, 5.75rem) clamp(1.25rem, 5vw, 4rem) clamp(2.5rem, 5vw, 4.5rem);
+  padding: clamp(3.5rem, 6vw, 5.75rem) clamp(1.25rem, 5vw, 4rem) clamp(2.5rem, 5vw, 3.5rem);
 }
 
 .games-carousel-heading {
