@@ -11,6 +11,7 @@ export function Header() {
   const navigate = useNavigate()
   const location = useLocation()
   const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false)
   const [searchInput, setSearchInput] = useState(() => location.pathname === '/buscar' ? (searchParams.get('q') ?? '') : '')
@@ -60,6 +61,7 @@ export function Header() {
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpenMenu(null)
+        setIsMobileMenuOpen(false)
         setIsUserMenuOpen(false)
         setIsLanguageMenuOpen(false)
       }
@@ -105,17 +107,17 @@ export function Header() {
           </div>
         </div> : <div className="guest-actions"><Link className="account-button" to="/login"><CircleUserRound size={21} /><span>Log In</span></Link><Link className="register-button" to="/register">Register</Link></div>)}
         <div className="language-menu" ref={languageMenuRef}><button aria-controls="language-dropdown" aria-expanded={isLanguageMenuOpen} className="language-button" onClick={() => setIsLanguageMenuOpen((isOpen) => !isOpen)} type="button" aria-label="Seleccionar idioma"><img alt="English" src="/media/general/en_flag.jpg" /></button><div aria-hidden={!isLanguageMenuOpen} className={`language-dropdown${isLanguageMenuOpen ? ' is-open' : ''}`} id="language-dropdown"><button onClick={() => setIsLanguageMenuOpen(false)} type="button"><span>EN</span> English</button><button onClick={() => setIsLanguageMenuOpen(false)} type="button"><span>ES</span> Español</button><button onClick={() => setIsLanguageMenuOpen(false)} type="button"><span>FR</span> Français</button></div></div>
-        <button className="mobile-menu-button" type="button" aria-label="Abrir menú"><Menu size={24} /></button>
+        <button aria-controls="mobile-category-nav" aria-expanded={isMobileMenuOpen} className="mobile-menu-button" onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)} type="button" aria-label="Abrir menú"><Menu size={24} /></button>
       </div>
     </div>
-    <nav className="category-nav" aria-label="Categorías principales" ref={navigationRef}>
+    <nav className={`category-nav${isMobileMenuOpen ? ' is-mobile-open' : ''}`} aria-label="Categorías principales" id="mobile-category-nav" ref={navigationRef}>
       <div className="category-nav-items">
         {navigationItems.map((item) => {
           const isOpen = openMenu === item.label
           const menuId = `category-menu-${item.label.toLowerCase().replaceAll(' ', '-')}`
           return <div className="category-menu" key={item.label} onMouseEnter={() => openCategoryMenu(item.label)} onMouseLeave={scheduleClose}>
-            <button aria-controls={menuId} aria-expanded={isOpen} className="category-nav-item" onFocus={() => openCategoryMenu(item.label)} type="button"><img src={item.logoUrl} alt="" /><span>{item.label}</span><ChevronDown aria-hidden="true" className={isOpen ? 'is-open' : undefined} size={14} strokeWidth={2.3} /></button>
-            <div aria-hidden={!isOpen} className={`category-dropdown${isOpen ? ' is-open' : ''}`} id={menuId}><Link onClick={() => setOpenMenu(null)} to={getNavigationPath(item)}>Ver todo</Link>{item.categories.map((category, index) => <Link className={index === 0 ? 'is-highlighted' : undefined} key={category} onClick={() => setOpenMenu(null)} to={getNavigationPath(item, category)}>{category}</Link>)}</div>
+            <button aria-controls={menuId} aria-expanded={isOpen} className="category-nav-item" onClick={() => setOpenMenu(isOpen ? null : item.label)} onFocus={() => openCategoryMenu(item.label)} type="button"><img src={item.logoUrl} alt="" /><span>{item.label}</span><ChevronDown aria-hidden="true" className={isOpen ? 'is-open' : undefined} size={14} strokeWidth={2.3} /></button>
+            <div aria-hidden={!isOpen} className={`category-dropdown${isOpen ? ' is-open' : ''}`} id={menuId}><Link onClick={() => { setOpenMenu(null); setIsMobileMenuOpen(false) }} to={getNavigationPath(item)}>Ver todo</Link>{item.categories.map((category, index) => <Link className={index === 0 ? 'is-highlighted' : undefined} key={category} onClick={() => { setOpenMenu(null); setIsMobileMenuOpen(false) }} to={getNavigationPath(item, category)}>{category}</Link>)}</div>
           </div>
         })}
       </div>
