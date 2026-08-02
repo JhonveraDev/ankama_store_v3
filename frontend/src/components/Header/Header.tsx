@@ -126,10 +126,10 @@ export function Header() {
           </div>
         </div> : <div className="guest-actions"><Link className="account-button" to="/login"><CircleUserRound size={21} /><span>Log In</span></Link><Link className="register-button" to="/register">Register</Link></div>)}
         <div className="language-menu" ref={languageMenuRef}>
-          <button aria-controls="language-dropdown" aria-expanded={isLanguageMenuOpen} className="language-button" onClick={() => setIsLanguageMenuOpen((isOpen) => !isOpen)} type="button" aria-label="Seleccionar idioma"><img alt="Español" className="language-flag-rectangular" src="/media/general/es_flag.svg" /></button>
+          <button aria-controls="language-dropdown" aria-expanded={isLanguageMenuOpen} className="language-button" onClick={() => setIsLanguageMenuOpen((isOpen) => !isOpen)} type="button" aria-label="Seleccionar idioma"><img alt="Español" className="language-flag-rectangular" src="/media/general/es_flag.png" /></button>
           <div aria-hidden={!isLanguageMenuOpen} className={`language-dropdown${isLanguageMenuOpen ? ' is-open' : ''}`} id="language-dropdown">
             <button onClick={() => handleLanguageSelection('en')} type="button"><img alt="" src="/media/general/en_flag.jpg" />English</button>
-            <button onClick={() => handleLanguageSelection('es')} type="button"><img alt="" className="language-flag-rectangular" src="/media/general/es_flag.svg" />Español</button>
+            <button onClick={() => handleLanguageSelection('es')} type="button"><img alt="" className="language-flag-rectangular" src="/media/general/es_flag.png" />Español</button>
             <button onClick={() => handleLanguageSelection('fr')} type="button"><img alt="" src="/media/general/fr_flag.svg" />Français</button>
           </div>
         </div>

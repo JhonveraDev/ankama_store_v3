@@ -2571,6 +2571,12 @@
 /* Carrito de compras. */
 .cart-header-button {
   position: relative;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.cart-header-button:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 5px 12px rgb(21 21 20 / 14%);
 }
 
 .cart-header-button>span {
@@ -3054,12 +3060,16 @@
   padding: 0;
   background: transparent;
   cursor: pointer;
-  transition: background-color .18s ease;
+  transition: background-color .18s ease, transform .2s ease, box-shadow .2s ease;
 }
 
-.language-button:hover,
-.language-button[aria-expanded='true'] {
+.language-button {
   background: rgb(255 255 255 / 68%);
+}
+
+.language-button:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 5px 12px rgb(21 21 20 / 14%);
 }
 
 .language-button img {
@@ -3067,6 +3077,14 @@
   height: 30px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.language-button img.language-flag-rectangular {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e7e7e7;
 }
 
 .language-dropdown {
@@ -3116,6 +3134,14 @@
   flex: 0 0 23px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.language-dropdown button img.language-flag-rectangular {
+  width: 26px;
+  height: 26px;
+  flex-basis: 26px;
+  border-radius: 50%;
+  object-fit: contain;
 }
 
 .language-dropdown button:hover {
