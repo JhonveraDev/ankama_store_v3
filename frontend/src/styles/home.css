@@ -303,6 +303,10 @@
   scroll-margin-top: 7rem;
 }
 
+.navigation-catalog-content[data-product-listing] {
+  scroll-margin-top: 14rem;
+}
+
 .product-grid {
   animation: catalog-grid-in 220ms ease-out;
 }
