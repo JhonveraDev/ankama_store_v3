@@ -6,6 +6,14 @@ import { getNavigationPath } from '../../features/navigation/navigation-routes'
 import { useAuth } from '../../features/auth/hooks/use-auth'
 import { useCart } from '../../features/cart/hooks/use-cart'
 
+type LanguageCode = 'en' | 'es' | 'fr'
+
+const languageNoticeCopy: Record<LanguageCode, { title: string; message: string; dismiss: string }> = {
+  en: { title: 'Coming soon', message: 'Store translations will be available in a future update.', dismiss: 'Got it' },
+  es: { title: 'Próximamente', message: 'La traducción de la tienda estará disponible en una futura actualización.', dismiss: 'Entendido' },
+  fr: { title: 'Bientôt disponible', message: 'Les traductions de la boutique seront disponibles dans une prochaine mise à jour.', dismiss: 'Compris' },
+}
+
 export function Header() {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
@@ -15,6 +23,7 @@ export function Header() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false)
   const [isLanguageNoticeOpen, setIsLanguageNoticeOpen] = useState(false)
+  const [noticeLanguage, setNoticeLanguage] = useState<LanguageCode>('es')
   const [searchInput, setSearchInput] = useState(() => location.pathname === '/buscar' ? (searchParams.get('q') ?? '') : '')
   const navigationRef = useRef<HTMLElement>(null)
   const userMenuRef = useRef<HTMLDivElement>(null)
@@ -88,10 +97,13 @@ export function Header() {
     navigate('/')
   }
 
-  const handleLanguageSelection = () => {
+  const handleLanguageSelection = (language: LanguageCode) => {
     setIsLanguageMenuOpen(false)
+    setNoticeLanguage(language)
     setIsLanguageNoticeOpen(true)
   }
+
+  const noticeCopy = languageNoticeCopy[noticeLanguage]
 
   return <header className="site-header">
     <div className="topbar">
@@ -114,11 +126,11 @@ export function Header() {
           </div>
         </div> : <div className="guest-actions"><Link className="account-button" to="/login"><CircleUserRound size={21} /><span>Log In</span></Link><Link className="register-button" to="/register">Register</Link></div>)}
         <div className="language-menu" ref={languageMenuRef}>
-          <button aria-controls="language-dropdown" aria-expanded={isLanguageMenuOpen} className="language-button" onClick={() => setIsLanguageMenuOpen((isOpen) => !isOpen)} type="button" aria-label="Seleccionar idioma"><img alt="English" src="/media/general/en_flag.jpg" /></button>
+          <button aria-controls="language-dropdown" aria-expanded={isLanguageMenuOpen} className="language-button" onClick={() => setIsLanguageMenuOpen((isOpen) => !isOpen)} type="button" aria-label="Seleccionar idioma"><img alt="Español" className="language-flag-rectangular" src="/media/general/es_flag.svg" /></button>
           <div aria-hidden={!isLanguageMenuOpen} className={`language-dropdown${isLanguageMenuOpen ? ' is-open' : ''}`} id="language-dropdown">
-            <button onClick={handleLanguageSelection} type="button"><img alt="" src="/media/general/en_flag.jpg" />English</button>
-            <button onClick={handleLanguageSelection} type="button"><img alt="" src="/media/general/es_flag.svg" />Español</button>
-            <button onClick={handleLanguageSelection} type="button"><img alt="" src="/media/general/fr_flag.svg" />Français</button>
+            <button onClick={() => handleLanguageSelection('en')} type="button"><img alt="" src="/media/general/en_flag.jpg" />English</button>
+            <button onClick={() => handleLanguageSelection('es')} type="button"><img alt="" className="language-flag-rectangular" src="/media/general/es_flag.svg" />Español</button>
+            <button onClick={() => handleLanguageSelection('fr')} type="button"><img alt="" src="/media/general/fr_flag.svg" />Français</button>
           </div>
         </div>
         <button aria-controls="mobile-category-nav" aria-expanded={isMobileMenuOpen} className="mobile-menu-button" onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)} type="button" aria-label="Abrir menú"><Menu size={24} /></button>
@@ -139,9 +151,9 @@ export function Header() {
     </nav>
     {isLanguageNoticeOpen && <div aria-labelledby="language-notice-title" aria-modal="true" className="language-notice-backdrop" onMouseDown={() => setIsLanguageNoticeOpen(false)} role="dialog">
       <div className="language-notice" onMouseDown={(event) => event.stopPropagation()}>
-        <h2 id="language-notice-title">Próximamente</h2>
-        <p>La traducción de la tienda estará disponible en una futura actualización.</p>
-        <button autoFocus onClick={() => setIsLanguageNoticeOpen(false)} type="button">Entendido</button>
+        <h2 id="language-notice-title">{noticeCopy.title}</h2>
+        <p>{noticeCopy.message}</p>
+        <button autoFocus onClick={() => setIsLanguageNoticeOpen(false)} type="button">{noticeCopy.dismiss}</button>
       </div>
     </div>}
   </header>
