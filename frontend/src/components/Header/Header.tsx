@@ -141,9 +141,17 @@ export function Header() {
         {navigationItems.map((item) => {
           const isOpen = openMenu === item.label
           const menuId = `category-menu-${item.label.toLowerCase().replaceAll(' ', '-')}`
+          const gamePath = getNavigationPath(item)
           return <div className="category-menu" key={item.label} onMouseEnter={() => openCategoryMenu(item.label)} onMouseLeave={scheduleClose}>
             <button aria-controls={menuId} aria-expanded={isOpen} className="category-nav-item" onClick={() => setOpenMenu(isOpen ? null : item.label)} onFocus={() => openCategoryMenu(item.label)} type="button"><img src={item.logoUrl} alt="" /><span>{item.label}</span><ChevronDown aria-hidden="true" className={isOpen ? 'is-open' : undefined} size={14} strokeWidth={2.3} /></button>
-            <div aria-hidden={!isOpen} className={`category-dropdown${isOpen ? ' is-open' : ''}`} id={menuId}><Link onClick={() => { setOpenMenu(null); setIsMobileMenuOpen(false) }} to={getNavigationPath(item)}>Ver todo</Link>{item.categories.map((category, index) => <Link className={index === 0 ? 'is-highlighted' : undefined} key={category} onClick={() => { setOpenMenu(null); setIsMobileMenuOpen(false) }} to={getNavigationPath(item, category)}>{category}</Link>)}</div>
+            <div aria-hidden={!isOpen} className={`category-dropdown${isOpen ? ' is-open' : ''}`} id={menuId}>
+              <Link aria-current={location.pathname === gamePath ? 'page' : undefined} className={location.pathname === gamePath ? 'is-highlighted' : undefined} onClick={() => { setOpenMenu(null); setIsMobileMenuOpen(false) }} to={gamePath}>Ver todo</Link>
+              {item.categories.map((category) => {
+                const categoryPath = getNavigationPath(item, category)
+                const isActive = location.pathname === categoryPath
+                return <Link aria-current={isActive ? 'page' : undefined} className={isActive ? 'is-highlighted' : undefined} key={category} onClick={() => { setOpenMenu(null); setIsMobileMenuOpen(false) }} to={categoryPath}>{category}</Link>
+              })}
+            </div>
           </div>
         })}
       </div>

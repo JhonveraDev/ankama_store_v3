@@ -3141,7 +3141,7 @@
   height: 26px;
   flex-basis: 26px;
   border-radius: 50%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .language-dropdown button:hover {
