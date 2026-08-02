@@ -13,7 +13,7 @@
   align-items: center;
   gap: 2rem;
   min-height: 74px;
-  padding: 0 4vw;
+  padding: 0 4vw 0 1.7vw;
   background: #e7e7e7;
 }
 
@@ -3925,4 +3925,11 @@
   .games-carousel-arrow {
     display: none;
   }
+}
+
+.brand img {
+  display: block;
+  width: 105px;
+  height: auto;
+  opacity: .7;
 }

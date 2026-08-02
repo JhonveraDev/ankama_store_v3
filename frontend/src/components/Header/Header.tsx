@@ -86,7 +86,7 @@ export function Header() {
 
   return <header className="site-header">
     <div className="topbar">
-      <a className="brand" href="/" aria-label="Arcadia Store, inicio"><span>arcadia</span><strong>store</strong></a>
+      <a className="brand" href="/" aria-label="Ankama Store, inicio"><img alt="Ankama Store" src="/media/brand/logo.1485f0cc.png" /></a>
       <form className="search-box" onSubmit={handleSearchSubmit}>
         <label className="sr-only" htmlFor="product-search">Buscar productos</label>
         <input id="product-search" minLength={3} onChange={(event) => setSearchInput(event.target.value)} placeholder="Buscar productos" type="search" value={searchInput} />
