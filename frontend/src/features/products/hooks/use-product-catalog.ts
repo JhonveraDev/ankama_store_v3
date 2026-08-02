@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import type { Product } from '../../../types/product'
 import { usePagination } from '../../pagination/hooks/use-pagination'
 
-type ProductSort = 'relevancia' | 'price-asc' | 'price-desc'
+export type ProductSort = 'relevancia' | 'price-asc' | 'price-desc' | 'ogrines-asc' | 'ogrines-desc'
 
 interface UseProductCatalogOptions {
   category?: string
@@ -22,7 +22,24 @@ export function useProductCatalog({ category, game, products, resetKey = '', sor
   const filteredProducts = useMemo(() => products.filter((product) => (!game || product.game === game) && (!category || product.category === category)), [category, game, products])
   const sortedProducts = useMemo(() => {
     if (sort === 'relevancia') return filteredProducts
-    return [...filteredProducts].sort((first, second) => sort === 'price-asc' ? first.price.amount - second.price.amount : second.price.amount - first.price.amount)
+
+    const isOgrinesSort = sort.startsWith('ogrines')
+    const direction = sort.endsWith('asc') ? 1 : -1
+
+    return [...filteredProducts].sort((first, second) => {
+      if (isOgrinesSort) {
+        const firstOgrines = first.price.ogrines
+        const secondOgrines = second.price.ogrines
+
+        if (firstOgrines === undefined && secondOgrines === undefined) return 0
+        if (firstOgrines === undefined) return 1
+        if (secondOgrines === undefined) return -1
+
+        return direction * (firstOgrines - secondOgrines)
+      }
+
+      return direction * (first.price.amount - second.price.amount)
+    })
   }, [filteredProducts, sort])
   const pagination = usePagination({ currentPage: requestedPage, items: sortedProducts, itemsPerPage })
   const setPage = useCallback((page: number) => setSearchParams((current) => {

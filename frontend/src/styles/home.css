@@ -376,6 +376,41 @@
   font-size: .86rem;
 }
 
+.catalog-filter {
+  position: relative;
+}
+
+.catalog-filter-menu {
+  position: absolute;
+  z-index: 4;
+  top: calc(100% + .5rem);
+  right: 0;
+  display: grid;
+  min-width: 220px;
+  padding: .4rem;
+  border: 1px solid #d5d3ce;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 10px 24px rgb(0 0 0 / 14%);
+}
+
+.catalog-filter-menu button {
+  padding: .65rem .75rem;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #393835;
+  text-align: left;
+  font-size: .84rem;
+}
+
+.catalog-filter-menu button:hover,
+.catalog-filter-menu button:focus-visible,
+.catalog-filter-menu button.is-active {
+  background: #edfbfb;
+  color: #087e80;
+}
+
 .catalog-message {
   display: flex;
   align-items: center;
