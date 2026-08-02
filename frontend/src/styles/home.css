@@ -321,7 +321,7 @@
   max-width: 1500px;
   min-height: 460px;
   margin: 0 auto;
-  padding: clamp(3rem, 6vw, 6rem) clamp(1.25rem, 5vw, 2rem);
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 5vw, 2rem);
 }
 
 .catalog-sidebar h2,
