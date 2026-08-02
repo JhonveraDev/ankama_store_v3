@@ -203,7 +203,7 @@
 .hero-thumbnail-shell {
   position: relative;
   z-index: 2;
-  width: min(1120px, calc(100% - 2rem));
+  width: min(var(--hero-thumbnail-shell-width, 1120px), calc(100% - 2rem));
   margin: -55px auto 0;
   padding: 16px 64px 12px;
   border-radius: 26px 26px 0 0;

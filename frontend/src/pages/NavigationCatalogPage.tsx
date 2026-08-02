@@ -7,6 +7,8 @@ import { useProducts } from '../features/products/hooks/use-products'
 import { CategorySidebar } from '../features/navigation/components/CategorySidebar'
 import type { NavigationItem } from '../features/navigation/navigation-items'
 import { findNavigationCategory, findNavigationItem, getNavigationGameValue, getNavigationPath } from '../features/navigation/navigation-routes'
+import { getCategoryBannerSlides } from '../features/navigation/category-banners'
+import { HeroCarousel } from '../components/HeroCarousel/HeroCarousel'
 
 type SortOption = 'relevancia' | 'price-asc' | 'price-desc'
 
@@ -17,7 +19,9 @@ export function NavigationCatalogPage() {
 
   if (!navigationItem || (categorySlug && !category)) return <Navigate replace to="/" />
 
-  return <NavigationCatalogContent category={category} navigationItem={navigationItem} />
+  const bannerSlides = getCategoryBannerSlides(getNavigationPath(navigationItem).slice(1))
+
+  return <>{bannerSlides.length > 0 && <HeroCarousel ariaLabel={`Promociones de ${navigationItem.label}`} slides={bannerSlides} />}<NavigationCatalogContent category={category} navigationItem={navigationItem} /></>
 }
 
 interface NavigationCatalogContentProps {

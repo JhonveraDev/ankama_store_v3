@@ -1,26 +1,29 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useEffect, useRef, useState, type PointerEvent } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from 'react'
 import type { BannerSlide } from '../../features/home/banner-slides'
 
 interface HeroCarouselProps {
   slides: BannerSlide[]
+  autoplayInterval?: number
+  ariaLabel?: string
 }
 
-export function HeroCarousel({ slides }: HeroCarouselProps) {
+export function HeroCarousel({ slides, autoplayInterval = 6000, ariaLabel = 'Promociones destacadas' }: HeroCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [timerKey, setTimerKey] = useState(0)
   const [dragOffset, setDragOffset] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
   const dragStartX = useRef<number | null>(null)
+  const thumbnailShellWidth = Math.min(1120, (slides.length * 130) + (Math.max(0, slides.length - 1) * 20) + 128)
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
       setActiveIndex((currentIndex) => (currentIndex + 1) % slides.length)
       setTimerKey((currentKey) => currentKey + 1)
-    }, 6000)
+    }, autoplayInterval)
 
     return () => window.clearTimeout(timer)
-  }, [activeIndex, slides.length, timerKey])
+  }, [activeIndex, autoplayInterval, slides.length, timerKey])
 
   const showSlide = (index: number) => {
     setActiveIndex(index)
@@ -70,7 +73,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
   }
 
   return (
-    <section className="hero" aria-label="Promociones destacadas">
+    <section className="hero" aria-label={ariaLabel}>
       <div
         className={`hero-viewport${isDragging ? ' is-dragging' : ''}`}
         onPointerDown={handlePointerDown}
@@ -90,7 +93,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
         <button className="hero-arrow hero-arrow--next" type="button" onPointerDown={(event) => event.stopPropagation()} onClick={goToNext} aria-label="Siguiente banner"><ChevronRight /></button>
       </div>
 
-      <div className="hero-thumbnail-shell">
+      <div className="hero-thumbnail-shell" style={{ '--hero-thumbnail-shell-width': `${thumbnailShellWidth}px` } as CSSProperties}>
         <div className="hero-thumbnails" role="tablist" aria-label="Seleccionar banner">
           {slides.map((slide, index) => (
             <button
