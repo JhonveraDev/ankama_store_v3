@@ -14,6 +14,7 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false)
+  const [isLanguageNoticeOpen, setIsLanguageNoticeOpen] = useState(false)
   const [searchInput, setSearchInput] = useState(() => location.pathname === '/buscar' ? (searchParams.get('q') ?? '') : '')
   const navigationRef = useRef<HTMLElement>(null)
   const userMenuRef = useRef<HTMLDivElement>(null)
@@ -64,6 +65,7 @@ export function Header() {
         setIsMobileMenuOpen(false)
         setIsUserMenuOpen(false)
         setIsLanguageMenuOpen(false)
+        setIsLanguageNoticeOpen(false)
       }
     }
     document.addEventListener('mousedown', closeOnOutsideClick)
@@ -86,6 +88,11 @@ export function Header() {
     navigate('/')
   }
 
+  const handleLanguageSelection = () => {
+    setIsLanguageMenuOpen(false)
+    setIsLanguageNoticeOpen(true)
+  }
+
   return <header className="site-header">
     <div className="topbar">
       <a className="brand" href="/" aria-label="Ankama Store, inicio"><img alt="Ankama Store" src="/media/brand/logo.1485f0cc.png" /></a>
@@ -106,7 +113,14 @@ export function Header() {
             <button className="user-dropdown-logout" onClick={handleLogout} type="button"><LogOut aria-hidden="true" size={19} /><span>Log Out</span></button>
           </div>
         </div> : <div className="guest-actions"><Link className="account-button" to="/login"><CircleUserRound size={21} /><span>Log In</span></Link><Link className="register-button" to="/register">Register</Link></div>)}
-        <div className="language-menu" ref={languageMenuRef}><button aria-controls="language-dropdown" aria-expanded={isLanguageMenuOpen} className="language-button" onClick={() => setIsLanguageMenuOpen((isOpen) => !isOpen)} type="button" aria-label="Seleccionar idioma"><img alt="English" src="/media/general/en_flag.jpg" /></button><div aria-hidden={!isLanguageMenuOpen} className={`language-dropdown${isLanguageMenuOpen ? ' is-open' : ''}`} id="language-dropdown"><button onClick={() => setIsLanguageMenuOpen(false)} type="button"><span>EN</span> English</button><button onClick={() => setIsLanguageMenuOpen(false)} type="button"><span>ES</span> Español</button><button onClick={() => setIsLanguageMenuOpen(false)} type="button"><span>FR</span> Français</button></div></div>
+        <div className="language-menu" ref={languageMenuRef}>
+          <button aria-controls="language-dropdown" aria-expanded={isLanguageMenuOpen} className="language-button" onClick={() => setIsLanguageMenuOpen((isOpen) => !isOpen)} type="button" aria-label="Seleccionar idioma"><img alt="English" src="/media/general/en_flag.jpg" /></button>
+          <div aria-hidden={!isLanguageMenuOpen} className={`language-dropdown${isLanguageMenuOpen ? ' is-open' : ''}`} id="language-dropdown">
+            <button onClick={handleLanguageSelection} type="button"><img alt="" src="/media/general/en_flag.jpg" />English</button>
+            <button onClick={handleLanguageSelection} type="button"><img alt="" src="/media/general/es_flag.svg" />Español</button>
+            <button onClick={handleLanguageSelection} type="button"><img alt="" src="/media/general/fr_flag.svg" />Français</button>
+          </div>
+        </div>
         <button aria-controls="mobile-category-nav" aria-expanded={isMobileMenuOpen} className="mobile-menu-button" onClick={() => setIsMobileMenuOpen((isOpen) => !isOpen)} type="button" aria-label="Abrir menú"><Menu size={24} /></button>
       </div>
     </div>
@@ -123,5 +137,12 @@ export function Header() {
       </div>
       <a className="merchandising-link" href="https://github.com/JhonveraDev" rel="noreferrer" target="_blank"><span>Github</span><ExternalLink aria-hidden="true" size={21} /></a>
     </nav>
+    {isLanguageNoticeOpen && <div aria-labelledby="language-notice-title" aria-modal="true" className="language-notice-backdrop" onMouseDown={() => setIsLanguageNoticeOpen(false)} role="dialog">
+      <div className="language-notice" onMouseDown={(event) => event.stopPropagation()}>
+        <h2 id="language-notice-title">Próximamente</h2>
+        <p>La traducción de la tienda estará disponible en una futura actualización.</p>
+        <button autoFocus onClick={() => setIsLanguageNoticeOpen(false)} type="button">Entendido</button>
+      </div>
+    </div>}
   </header>
 }
