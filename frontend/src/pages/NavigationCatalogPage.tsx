@@ -1,6 +1,6 @@
 import { ChevronRight, PackageOpen } from 'lucide-react'
-import { useState } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { Link, Navigate, useLocation, useParams } from 'react-router-dom'
 import { ProductResults } from '../features/products/components/ProductResults'
 import { useProductCatalog } from '../features/products/hooks/use-product-catalog'
 import { useProducts } from '../features/products/hooks/use-products'
@@ -10,6 +10,7 @@ import type { NavigationItem } from '../features/navigation/navigation-items'
 import { findNavigationCategory, findNavigationItem, getNavigationGameValue, getNavigationPath } from '../features/navigation/navigation-routes'
 import { getCategoryBannerSlides } from '../features/navigation/category-banners'
 import { HeroCarousel } from '../components/HeroCarousel/HeroCarousel'
+import { scrollToProductListing } from '../features/products/utils/scroll-to-product-listing'
 
 type SortOption = 'relevancia' | 'price-asc' | 'price-desc'
 
@@ -32,7 +33,10 @@ interface NavigationCatalogContentProps {
 
 function NavigationCatalogContent({ category, navigationItem }: NavigationCatalogContentProps) {
   const [sort, setSort] = useState<SortOption>('relevancia')
+  const productsSectionRef = useRef<HTMLDivElement>(null)
+  const { state } = useLocation()
   const { data: allProducts = [] } = useProducts()
+  const preserveProductListingScroll = (state as { preserveProductListingScroll?: boolean } | null)?.preserveProductListingScroll === true
 
   const catalog = useProductCatalog({ category, game: getNavigationGameValue(navigationItem.label), products: allProducts, resetKey: `${navigationItem.label}-${category ?? ''}-${sort}`, sort })
   const title = category ?? navigationItem.label
@@ -41,12 +45,18 @@ function NavigationCatalogContent({ category, navigationItem }: NavigationCatalo
     setSort(value)
   }
 
+  useEffect(() => {
+    if (!preserveProductListingScroll) return
+    const animationFrame = requestAnimationFrame(() => scrollToProductListing(productsSectionRef.current))
+    return () => cancelAnimationFrame(animationFrame)
+  }, [category, navigationItem.label, preserveProductListingScroll])
+
   return (
     <section className="navigation-catalog-page">
       <nav aria-label="Breadcrumb" className="catalog-breadcrumbs"><Link to="/">Inicio</Link><ChevronRight size={14} /><Link to={getNavigationPath(navigationItem)}>{navigationItem.label}</Link>{category && <><ChevronRight size={14} /><span>{category}</span></>}</nav>
       <div className="navigation-catalog-layout">
         <CategorySidebar activeCategory={category} item={navigationItem} productCount={catalog.totalItems} />
-        <div className="navigation-catalog-content" data-product-listing>
+        <div className="navigation-catalog-content" data-product-listing ref={productsSectionRef}>
           <header className="navigation-catalog-heading"><p className="section-kicker">{navigationItem.label}</p><h1>{title}</h1><p>{category ? `Encuentra artículos seleccionados de ${category}.` : `Explora todas las categorías disponibles para ${navigationItem.label}.`}</p></header>
           {catalog.totalItems ? <>
             <div className="navigation-catalog-meta"><span>{catalog.totalItems} productos</span><label>Ordenar por <select onChange={(event) => changeSort(event.target.value as SortOption)} value={sort}><option value="relevancia">Relevancia</option><option value="price-asc">Precio: menor a mayor</option><option value="price-desc">Precio: mayor a menor</option></select></label></div>

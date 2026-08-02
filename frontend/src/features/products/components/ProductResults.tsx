@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import type { Product } from '../../../types/product'
 import { Pagination } from '../../pagination/components/Pagination'
 import { ProductCard } from './ProductCard'
+import { scrollToProductListing } from '../utils/scroll-to-product-listing'
 
 interface ProductResultsProps {
   className?: string
@@ -17,10 +18,7 @@ export function ProductResults({ className = '', currentPage, onPageChange, prod
 
   const handlePageChange = (page: number) => {
     onPageChange(page)
-    requestAnimationFrame(() => {
-      const scrollTarget = productsSectionRef.current?.closest<HTMLElement>('[data-product-listing]') ?? productsSectionRef.current
-      scrollTarget?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    })
+    requestAnimationFrame(() => scrollToProductListing(productsSectionRef.current))
   }
 
   return <div className="product-results" ref={productsSectionRef}><div className={`product-grid ${className}`.trim()} key={currentPage}>{products.map((product) => <ProductCard key={product.id} product={product} />)}</div><Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={totalPages} /></div>
