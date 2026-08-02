@@ -14,7 +14,9 @@ export function HeroCarousel({ slides, autoplayInterval = 6000, ariaLabel = 'Pro
   const [dragOffset, setDragOffset] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
   const dragStartX = useRef<number | null>(null)
-  const thumbnailShellWidth = Math.min(1120, (slides.length * 130) + (Math.max(0, slides.length - 1) * 20) + 128)
+  const thumbnailCount = slides.length
+  const thumbnailShellWidth = Math.min(1120, (thumbnailCount * 130) + (Math.max(0, thumbnailCount - 1) * 20) + (thumbnailCount < 3 ? 64 : 128))
+  const mobileThumbnailShellWidth = (thumbnailCount * 110) + (Math.max(0, thumbnailCount - 1) * 12) + 32
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -93,8 +95,8 @@ export function HeroCarousel({ slides, autoplayInterval = 6000, ariaLabel = 'Pro
         <button className="hero-arrow hero-arrow--next" type="button" onPointerDown={(event) => event.stopPropagation()} onClick={goToNext} aria-label="Siguiente banner"><ChevronRight /></button>
       </div>
 
-      <div className="hero-thumbnail-shell" style={{ '--hero-thumbnail-shell-width': `${thumbnailShellWidth}px` } as CSSProperties}>
-        <div className="hero-thumbnails" role="tablist" aria-label="Seleccionar banner">
+      <div className="hero-thumbnail-shell" style={{ '--hero-thumbnail-shell-width': `${thumbnailShellWidth}px`, '--hero-mobile-thumbnail-shell-width': `${mobileThumbnailShellWidth}px` } as CSSProperties}>
+        <div className={`hero-thumbnails${slides.length < 3 ? ' is-compact' : ''}`} role="tablist" aria-label="Seleccionar banner">
           {slides.map((slide, index) => (
             <button
               key={slide.imageUrl}

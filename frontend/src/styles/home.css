@@ -218,6 +218,10 @@
   scrollbar-width: none;
 }
 
+.hero-thumbnails.is-compact {
+  justify-content: center;
+}
+
 .hero-thumbnails::-webkit-scrollbar {
   display: none;
 }
@@ -664,10 +668,24 @@
   line-height: 1;
 }
 
-.social-facebook { background: #4f71b9; font-family: Arial, sans-serif; font-weight: 700 !important; }
-.social-x { background: #050505; font-size: 1.9rem !important; }
-.social-instagram { background: radial-gradient(circle at 30% 110%, #ffd86f 0 12%, #f534a8 35%, #7149c6 64%, #4456a5 100%); }
-.social-youtube { background: #f1242b; }
+.social-facebook {
+  background: #4f71b9;
+  font-family: Arial, sans-serif;
+  font-weight: 700 !important;
+}
+
+.social-x {
+  background: #050505;
+  font-size: 1.9rem !important;
+}
+
+.social-instagram {
+  background: radial-gradient(circle at 30% 110%, #ffd86f 0 12%, #f534a8 35%, #7149c6 64%, #4456a5 100%);
+}
+
+.social-youtube {
+  background: #f1242b;
+}
 
 .footer-payments {
   max-width: 850px;
@@ -836,8 +854,8 @@
   }
 
   .hero-thumbnail-shell {
-    width: calc(100% - 1.2rem);
-    margin-top: -8px;
+    width: min(var(--hero-mobile-thumbnail-shell-width, calc(100% - 1.2rem)), calc(100% - 1.2rem));
+    margin-top: -40px;
     padding: 10px 14px 12px;
     border-radius: 16px 16px 0 0;
   }
@@ -845,6 +863,10 @@
   .hero-thumbnails {
     justify-content: start;
     gap: 12px;
+  }
+
+  .hero-thumbnails.is-compact {
+    justify-content: center;
   }
 
   .hero-thumbnail {
@@ -896,7 +918,7 @@
 
   .product-card-info {
     min-height: 67px;
-    padding: .75rem .7rem .75rem 3.25rem;
+    padding: .75rem .7rem .75rem 4rem;
   }
 
   .product-game-logo {
@@ -4332,5 +4354,20 @@
   .user-balance,
   .user-panel-trigger>svg {
     display: none;
+  }
+}
+
+@media (max-width: 440px) {
+  .product-game-logo {
+    left: .2rem;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 375px) {
+  .product-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: .8rem;
   }
 }
