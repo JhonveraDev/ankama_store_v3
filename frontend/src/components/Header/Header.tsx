@@ -1,4 +1,4 @@
-import { ChevronDown, CircleUserRound, ExternalLink, Globe2, History, LogOut, Menu, Search, ShoppingBasket, UserRound } from 'lucide-react'
+import { ChevronDown, CircleUserRound, ExternalLink, History, LogOut, Menu, Search, ShoppingBasket, UserRound } from 'lucide-react'
 import { type FormEvent, useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { navigationItems } from '../../features/navigation/navigation-items'
@@ -12,9 +12,11 @@ export function Header() {
   const location = useLocation()
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false)
   const [searchInput, setSearchInput] = useState(() => location.pathname === '/buscar' ? (searchParams.get('q') ?? '') : '')
   const navigationRef = useRef<HTMLElement>(null)
   const userMenuRef = useRef<HTMLDivElement>(null)
+  const languageMenuRef = useRef<HTMLDivElement>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const searchTerm = location.pathname === '/buscar' ? (searchParams.get('q') ?? '') : ''
   const { totalQuantity } = useCart()
@@ -53,11 +55,13 @@ export function Header() {
       const target = event.target as Node
       if (!navigationRef.current?.contains(target)) setOpenMenu(null)
       if (!userMenuRef.current?.contains(target)) setIsUserMenuOpen(false)
+      if (!languageMenuRef.current?.contains(target)) setIsLanguageMenuOpen(false)
     }
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpenMenu(null)
         setIsUserMenuOpen(false)
+        setIsLanguageMenuOpen(false)
       }
     }
     document.addEventListener('mousedown', closeOnOutsideClick)
@@ -100,7 +104,7 @@ export function Header() {
             <button className="user-dropdown-logout" onClick={handleLogout} type="button"><LogOut aria-hidden="true" size={19} /><span>Log Out</span></button>
           </div>
         </div> : <div className="guest-actions"><Link className="account-button" to="/login"><CircleUserRound size={21} /><span>Log In</span></Link><Link className="register-button" to="/register">Register</Link></div>)}
-        <button className="language-button" type="button" aria-label="Idioma: inglés"><img alt="English" src="/media/general/en_flag.jpg" /><Globe2 aria-hidden="true" size={14} /></button>
+        <div className="language-menu" ref={languageMenuRef}><button aria-controls="language-dropdown" aria-expanded={isLanguageMenuOpen} className="language-button" onClick={() => setIsLanguageMenuOpen((isOpen) => !isOpen)} type="button" aria-label="Seleccionar idioma"><img alt="English" src="/media/general/en_flag.jpg" /></button><div aria-hidden={!isLanguageMenuOpen} className={`language-dropdown${isLanguageMenuOpen ? ' is-open' : ''}`} id="language-dropdown"><button onClick={() => setIsLanguageMenuOpen(false)} type="button"><span>EN</span> English</button><button onClick={() => setIsLanguageMenuOpen(false)} type="button"><span>ES</span> Español</button><button onClick={() => setIsLanguageMenuOpen(false)} type="button"><span>FR</span> Français</button></div></div>
         <button className="mobile-menu-button" type="button" aria-label="Abrir menú"><Menu size={24} /></button>
       </div>
     </div>

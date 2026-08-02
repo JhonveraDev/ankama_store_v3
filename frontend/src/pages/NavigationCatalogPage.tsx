@@ -4,6 +4,7 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import { ProductResults } from '../features/products/components/ProductResults'
 import { useProductCatalog } from '../features/products/hooks/use-product-catalog'
 import { useProducts } from '../features/products/hooks/use-products'
+import { RecentlyViewedProducts } from '../features/recently-viewed/components/RecentlyViewedProducts'
 import { CategorySidebar } from '../features/navigation/components/CategorySidebar'
 import type { NavigationItem } from '../features/navigation/navigation-items'
 import { findNavigationCategory, findNavigationItem, getNavigationGameValue, getNavigationPath } from '../features/navigation/navigation-routes'
@@ -53,6 +54,7 @@ function NavigationCatalogContent({ category, navigationItem }: NavigationCatalo
           </> : <div className="catalog-message catalog-message--empty"><PackageOpen size={38} /><div><h3>Próximamente habrá productos aquí</h3><p>Esta categoría aún no tiene productos disponibles.</p></div></div>}
         </div>
       </div>
+      <RecentlyViewedProducts />
     </section>
   )
 }
