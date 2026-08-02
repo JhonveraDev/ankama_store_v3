@@ -43,6 +43,7 @@ export function GamesCarousel({ items = navigationItems, title = 'Nuestros juego
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === 'mouse' && event.button !== 0) return
+    if ((event.target as HTMLElement).closest('a, button')) return
     const track = event.currentTarget
     dragStart.current = { scrollLeft: track.scrollLeft, x: event.clientX }
     dragged.current = false
