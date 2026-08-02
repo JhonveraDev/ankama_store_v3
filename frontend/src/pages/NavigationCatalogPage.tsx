@@ -46,7 +46,7 @@ function NavigationCatalogContent({ category, navigationItem }: NavigationCatalo
       <nav aria-label="Breadcrumb" className="catalog-breadcrumbs"><Link to="/">Inicio</Link><ChevronRight size={14} /><Link to={getNavigationPath(navigationItem)}>{navigationItem.label}</Link>{category && <><ChevronRight size={14} /><span>{category}</span></>}</nav>
       <div className="navigation-catalog-layout">
         <CategorySidebar activeCategory={category} item={navigationItem} productCount={catalog.totalItems} />
-        <div className="navigation-catalog-content">
+        <div className="navigation-catalog-content" data-product-listing>
           <header className="navigation-catalog-heading"><p className="section-kicker">{navigationItem.label}</p><h1>{title}</h1><p>{category ? `Encuentra artículos seleccionados de ${category}.` : `Explora todas las categorías disponibles para ${navigationItem.label}.`}</p></header>
           {catalog.totalItems ? <>
             <div className="navigation-catalog-meta"><span>{catalog.totalItems} productos</span><label>Ordenar por <select onChange={(event) => changeSort(event.target.value as SortOption)} value={sort}><option value="relevancia">Relevancia</option><option value="price-asc">Precio: menor a mayor</option><option value="price-desc">Precio: mayor a menor</option></select></label></div>

@@ -43,7 +43,7 @@ export function SearchResultsPage() {
         </fieldset>
       </aside>
 
-      <div className="search-results-content">
+      <div className="search-results-content" data-product-listing>
         {isLoading && <div className="catalog-message"><LoaderCircle className="spin" /> Buscando productos…</div>}
         {isError && <div className="catalog-message catalog-message--error"><AlertCircle /><div><p>No fue posible realizar la búsqueda.</p><button className="catalog-retry-button" onClick={() => void refetch()} type="button">Reintentar</button></div></div>}
         {!isLoading && !isError && catalog.totalItems === 0 && (

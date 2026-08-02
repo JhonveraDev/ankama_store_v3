@@ -14,7 +14,7 @@ export function ProductCategoryResults({ category, game, onShowProduct, products
   const catalog = useProductCatalog({ products, resetKey: `${game}-${category}` })
 
   return (
-    <section className="product-category-results" aria-labelledby="category-results-title">
+    <section className="product-category-results" aria-labelledby="category-results-title" data-product-listing>
       <p className="section-kicker">{formatProductGame(game)}</p>
       <div className="product-category-results-heading">
         <div><h1 id="category-results-title">{formatProductCategory(category)}</h1><p>{catalog.totalItems} {catalog.totalItems === 1 ? 'producto' : 'productos'}</p></div>

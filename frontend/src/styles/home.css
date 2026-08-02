@@ -298,6 +298,11 @@
   font-weight: 750;
 }
 
+[data-product-listing],
+.product-results {
+  scroll-margin-top: 7rem;
+}
+
 .product-grid {
   animation: catalog-grid-in 220ms ease-out;
 }
@@ -2132,11 +2137,11 @@
 }
 
 .recently-viewed-arrow--previous {
-  left: -22px;
+  left: -57px;
 }
 
 .recently-viewed-arrow--next {
-  right: -22px;
+  right: -57px;
 }
 
 @media (max-width: 700px) {
@@ -3623,7 +3628,7 @@
 .navigation-catalog-page {
   width: min(1440px, calc(100% - 2.5rem));
   min-height: 560px;
-  margin: clamp(2rem, 5vw, 4.5rem) auto;
+  margin: clamp(2rem, 5vw, 3.5rem) auto;
 }
 
 .catalog-breadcrumbs {
