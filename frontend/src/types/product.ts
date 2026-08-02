@@ -2,6 +2,7 @@ export type ProductGame = string
 
 export interface ProductPrice {
   amount: number
+  ogrines?: number
   currency: string
 }
 
@@ -19,7 +20,6 @@ export interface Product {
   category: string
   subcategory?: string
   price: ProductPrice
-  ogrinePrice?: number
   imageUrl: string
   gallery?: string[]
   shortDescription?: string

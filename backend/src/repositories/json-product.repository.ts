@@ -12,9 +12,9 @@ const productSchema = z.object({
   category: z.string().min(1),
   price: z.object({
     amount: z.number().int().nonnegative(),
+    ogrines: z.number().int().nonnegative().optional(),
     currency: z.string().length(3),
   }),
-  ogrinePrice: z.number().int().nonnegative().optional(),
   imageUrl: z.string().min(1),
   stock: z.number().int().nonnegative(),
   badge: z.string().min(1).optional(),

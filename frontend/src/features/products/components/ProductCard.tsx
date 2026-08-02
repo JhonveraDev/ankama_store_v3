@@ -27,9 +27,9 @@ export function ProductCard({ product }: ProductCardProps) {
         {gameLogo && <img alt="" aria-hidden="true" className="product-game-logo" src={gameLogo} />}
         <h3 title={product.name}>{product.name}</h3>
       </div>
-      <div className="product-price" aria-label={`Precio: ${formatPrice(product.price.amount, product.price.currency)}${product.ogrinePrice !== undefined ? ` or ${formatOgrines(product.ogrinePrice)} Ogrinas` : ''}`}>
+      <div className="product-price" aria-label={`Precio: ${formatPrice(product.price.amount, product.price.currency)}${product.price.ogrines !== undefined ? ` or ${formatOgrines(product.price.ogrines)} Ogrinas` : ''}`}>
         <span>{formatPrice(product.price.amount, product.price.currency)}</span>
-        {product.ogrinePrice !== undefined && <><span className="product-price-separator">or</span><span className="product-ogrine-price"><img alt="" aria-hidden="true" src="/media/general/ogrine_coin.svg" />{formatOgrines(product.ogrinePrice)} Ogrinas</span></>}
+        {product.price.ogrines !== undefined && <><span className="product-price-separator">or</span><span className="product-ogrine-price"><img alt="" aria-hidden="true" src="/media/general/ogrine_coin.svg" />{formatOgrines(product.price.ogrines)} Ogrinas</span></>}
       </div>
     </Link>
   )
