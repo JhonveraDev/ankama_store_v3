@@ -300,6 +300,7 @@
 
 [data-product-listing],
 .product-results {
+  container-type: inline-size;
   scroll-margin-top: 7rem;
 }
 
@@ -4265,4 +4266,71 @@
   width: 105px;
   height: auto;
   opacity: .7;
+}
+
+/* La paginación se adapta al ancho real del listado, incluso junto a un sidebar. */
+@container (max-width: 900px) {
+  .catalog-pagination {
+    gap: .45rem;
+    max-width: 100%;
+  }
+
+  .pagination-pages {
+    gap: .45rem;
+  }
+
+  .pagination-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pagination-ellipsis {
+    display: none;
+  }
+
+  .pagination-pages .pagination-page:not(.is-active):not(:first-child):not(:last-child) {
+    display: none;
+  }
+}
+
+/* El header superior y la navegación cambian juntos para que el logo no se comprima. */
+@media (max-width: 1400px) {
+  .topbar {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: clamp(.65rem, 1.8vw, 1.4rem);
+    padding-inline: clamp(.9rem, 2vw, 2rem);
+  }
+
+  .site-header .brand {
+    flex: none;
+  }
+
+  .site-header .brand img {
+    width: clamp(92px, 7vw, 105px);
+    max-width: none;
+  }
+
+  .search-box {
+    min-width: 0;
+  }
+
+  .header-actions {
+    min-width: max-content;
+    gap: clamp(.45rem, 1vw, .9rem);
+  }
+}
+
+@media (max-width: 1100px) {
+  .user-panel-trigger {
+    width: 42px;
+    min-height: 42px;
+    justify-content: center;
+    padding: .25rem;
+  }
+
+  .user-panel-name,
+  .user-balance,
+  .user-panel-trigger>svg {
+    display: none;
+  }
 }
