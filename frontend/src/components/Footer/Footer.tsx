@@ -31,7 +31,7 @@ export function Footer() {
           <div className="payment-methods">{paymentMethods.map(([fileName, label]) => <img alt={label} className="payment-method" key={fileName} src={`/media/payments/${fileName}`} />)}</div>
         </section>
       </div>
-      <div className="footer-bottom"><div className="footer-bottom-content"><img alt="Ankama" className="footer-logo" src="/media/general/logo-inline-white.svg" /><span aria-hidden="true" className="footer-divider" /><span>Copyright © 2026 Ankama. Todos los derechos reservados.</span></div></div>
+      <div className="footer-bottom"><div className="footer-bottom-content"><img alt="Ankama" className="footer-logo" src="/media/general/logo-inline-white.svg" /><span aria-hidden="true" className="footer-divider" /><span><strong>Copyright © 2026 Ankama</strong>. Todos los derechos reservados.</span></div></div>
     </footer>
   )
 }
